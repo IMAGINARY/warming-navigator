@@ -1,5 +1,12 @@
 import ready from 'document-ready';
 
+const defaultOptions = {
+  lang: 'en',
+  minYear: 'valid',
+  maxYear: 'valid',
+  invalidYears: 'keep',
+};
+
 function mixColor(c1, c2, t) {
   return Array(3)
     .fill(0)
@@ -7,7 +14,11 @@ function mixColor(c1, c2, t) {
 }
 
 class WarmingNavigator {
-  constructor(element, data) {
+  constructor(element, data, options) {
+    this.options = {
+      ...defaultOptions,
+      ...options,
+    };
     this.element =
       element instanceof Element ? element : document.querySelector(element);
     this.regionElement = this.element.querySelector('.region');
@@ -19,7 +30,7 @@ class WarmingNavigator {
     this.regionIndex = getRandomInt(data.regions.length);
     this.yearRange = data.yearRange;
     [, this.year] = this.yearRange;
-    this.language = 'en';
+    this.language = this.options.lang;
     this._update();
   }
 
@@ -189,6 +200,12 @@ async function fetchData() {
   return data;
 }
 
+function getOptions() {
+  const searchParams = new URLSearchParams(window.location.search);
+  const options = Object.fromEntries(searchParams.entries());
+  return options;
+}
+
 const redrawComplete = true;
 
 async function main() {
@@ -201,7 +218,8 @@ async function main() {
   console.log(maxUnc);
   const wn = new WarmingNavigator(
     document.querySelector('.warming-navigator'),
-    data
+    data,
+    getOptions()
   );
   wn.setYearRange(data.validYearRange[0], data.yearRange[1]);
   document.addEventListener('keydown', (event) => {
