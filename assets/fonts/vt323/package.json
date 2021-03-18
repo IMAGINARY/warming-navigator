@@ -1,0 +1,59 @@
+{
+  "_from": "@fontsource/vt323",
+  "_id": "@fontsource/vt323@4.2.2",
+  "_inBundle": false,
+  "_integrity": "sha512-RuMmQuAQ0PQq9aH4mjRHQLu9RdH4boVxsDyP+PQjgJS7qIcIYNCq4vcxZ8y3MXhVrG9SFgQCODedco9Z2TaUHg==",
+  "_location": "/@fontsource/vt323",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "@fontsource/vt323",
+    "name": "@fontsource/vt323",
+    "escapedName": "@fontsource%2fvt323",
+    "scope": "@fontsource",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@fontsource/vt323/-/vt323-4.2.2.tgz",
+  "_shasum": "296af4353263e5342f6133c0189ad82d51f8edc9",
+  "_spec": "@fontsource/vt323",
+  "_where": "/Users/stussak/Desktop/IMAGINARY/10MM/warming-navigator/src",
+  "author": {
+    "name": "Lotus",
+    "email": "declininglotus@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/fontsource/fontsource/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "Self-host the VT323 font in a neatly bundled NPM package.",
+  "gitHead": "6f1ab8fd3e6c93d96a0fcd131f12409d142d9a9e",
+  "homepage": "https://github.com/fontsource/fontsource/tree/master/packages/vt323#readme",
+  "keywords": [
+    "fontsource",
+    "font",
+    "font family",
+    "google fonts",
+    "VT323",
+    "vt323"
+  ],
+  "license": "MIT",
+  "main": "index.css",
+  "name": "@fontsource/vt323",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fontsource/fontsource.git",
+    "directory": "packages/vt323"
+  },
+  "version": "4.2.2"
+}

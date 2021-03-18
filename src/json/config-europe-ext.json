@@ -1,0 +1,326 @@
+{
+  "regions": [
+    {
+      "title": {
+        "de": "Albanien",
+        "en": "Albania"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/albania-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Andorra",
+        "en": "Andorra"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/andorra-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Österreich",
+        "en": "Austria"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/austria-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Weißrussland",
+        "en": "Belarus"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/belarus-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Belgien",
+        "en": "Belgium"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/belgium-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Bosnien und Herzegowina",
+        "en": "Bosnia and Herzegovina"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/bosnia-and-herzegovina-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Bulgarien",
+        "en": "Bulgaria"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/bulgaria-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Kroatien",
+        "en": "Croatia"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/croatia-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Zypern",
+        "en": "Cyprus"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/cyprus-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Tschechien",
+        "en": "Czech Republic"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/czech-republic-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Dänemark",
+        "en": "Denmark"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/denmark-(europe)-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Estland",
+        "en": "Estonia"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/estonia-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Finnland",
+        "en": "Finland"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/finland-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Frankreich",
+        "en": "France"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/france-(europe)-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Deutschland",
+        "en": "Germany"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/germany-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Griechenland",
+        "en": "Greece"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/greece-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Ungarn",
+        "en": "Hungary"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/hungary-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Island",
+        "en": "Iceland"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/iceland-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Irland",
+        "en": "Ireland"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/ireland-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Italien",
+        "en": "Italy"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/italy-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Kosovo",
+        "en": "Kosovo"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/kosovo-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Lettland",
+        "en": "Latvia"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/latvia-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Liechtenstein",
+        "en": "Liechtenstein"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/liechtenstein-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Litauen",
+        "en": "Lithuania"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/lithuania-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Luxemburg",
+        "en": "Luxembourg"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/luxembourg-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Nordmazedonien",
+        "en": "North Macedonia"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/macedonia-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Malta",
+        "en": "Malta"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/malta-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Moldawien",
+        "en": "Moldova"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/moldova-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Monaco",
+        "en": "Monaco"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/monaco-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Montenegro",
+        "en": "Montenegro"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/montenegro-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Niederlande",
+        "en": "Netherlands"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/netherlands-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Norwegen",
+        "en": "Norway"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/norway-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Polen",
+        "en": "Poland"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/poland-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Portugal",
+        "en": "Portugal"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/portugal-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Rumänien",
+        "en": "Romania"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/romania-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Russland",
+        "en": "Russia"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/russia-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "San Marino",
+        "en": "San Marino"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/san-marino-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Serbien",
+        "en": "Serbia"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/serbia-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Slowakei",
+        "en": "Slovakia"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/slovakia-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Slowenien",
+        "en": "Slovenia"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/slovenia-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Spanien",
+        "en": "Spain"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/spain-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Schweden",
+        "en": "Sweden"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/sweden-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Schweiz",
+        "en": "Switzerland"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/switzerland-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Türkei",
+        "en": "Turkey"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/turkey-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Ukraine",
+        "en": "Ukraine"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/ukraine-TAVG-Trend.txt"
+    },
+    {
+      "title": {
+        "de": "Vereinigtes Königreich",
+        "en": "United Kingdom"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/united-kingdom-TAVG-Trend.txt"
+    }
+  ]
+}

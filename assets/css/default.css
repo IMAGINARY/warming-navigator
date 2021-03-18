@@ -1,0 +1,53 @@
+@import url(../fonts/vt323/index.css);
+body,
+html {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; }
+
+body {
+  background-color: lightgray;
+  /* font-family: 'Jura', sans-serif; */
+  font-family: "VT323", monospace;
+  /* font-family: 'Space Mono', monospace; */ }
+
+.warming-navigator {
+  position: relative;
+  width: 800px;
+  height: 480px;
+  outline: 2px solid gray;
+  margin: auto;
+  cursor: none; }
+
+.warming-navigator .region,
+.warming-navigator .year {
+  position: absolute;
+  bottom: 0px;
+  margin: 10pt;
+  font-size: 300%; }
+
+.warming-navigator .region {
+  left: 0px; }
+
+.warming-navigator .year {
+  right: 0px; }
+
+.warming-navigator .anomaly {
+  position: absolute;
+  bottom: 38%;
+  width: 100%;
+  text-align: center;
+  font-size: 1000%; }
+
+.warming-navigator .uncertainty {
+  position: absolute;
+  top: 59%;
+  width: 100%;
+  text-align: center;
+  font-size: 300%;
+  opacity: 30%; }
+
+/*# sourceMappingURL=default.css.map */
