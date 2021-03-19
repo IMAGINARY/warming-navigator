@@ -44,7 +44,8 @@
   },
   "dependencies": {
     "@fontsource/vt323": "^4.2.2",
-    "document-ready": "^2.0.2"
+    "document-ready": "^2.0.2",
+    "lodash.random": "^3.2.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

@@ -1,10 +1,12 @@
 import ready from 'document-ready';
+import random from 'lodash.random';
 
 const defaultOptions = {
   lang: 'en',
-  minYear: 'valid',
-  maxYear: 'valid',
-  invalidYears: 'keep',
+  minYear: 'valid', // 'data', 'valid', <number>
+  maxYear: 'data', // 'data', 'valid', <number>
+  initialYear: 'random', // 'first', 'last', 'random', <number>
+  initialRegion: 'random', // 'first', 'last', 'random', <number>
 };
 
 function mixColor(c1, c2, t) {
@@ -15,10 +17,6 @@ function mixColor(c1, c2, t) {
 
 class WarmingNavigator {
   constructor(element, data, options) {
-    this.options = {
-      ...defaultOptions,
-      ...options,
-    };
     this.element =
       element instanceof Element ? element : document.querySelector(element);
     this.regionElement = this.element.querySelector('.region');
@@ -26,12 +24,58 @@ class WarmingNavigator {
     this.anomalyElement = this.element.querySelector('.anomaly');
     this.uncertaintyElement = this.element.querySelector('.uncertainty');
     this.data = data;
-    const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
-    this.regionIndex = getRandomInt(data.regions.length);
-    this.yearRange = data.yearRange;
-    [, this.year] = this.yearRange;
-    this.language = this.options.lang;
+    this._processOptions({ ...defaultOptions, ...options });
     this._update();
+  }
+
+  _processOptions(o) {
+    const propertyOrInt = (optionKey, obj) => {
+      const optionValue = o[optionKey];
+
+      if (typeof obj[optionValue] !== 'undefined') return obj[optionValue];
+
+      const num = Number.parseInt(optionValue, 10);
+      if (Number.isFinite(num)) return num;
+
+      throw new Error(
+        `Invalid option: ${optionKey}=${optionValue}. (Wanted: Integer or one of ${Object.keys(
+          obj
+        )})`
+      );
+    };
+
+    const minYears = {
+      data: this.data.yearRange[0],
+      valid: this.data.validYearRange[0],
+    };
+    const maxYears = {
+      data: this.data.yearRange[1],
+      valid: this.data.validYearRange[1],
+    };
+    this.yearRange = [
+      propertyOrInt('minYear', minYears),
+      propertyOrInt('maxYear', maxYears),
+    ];
+
+    const initialYears = {
+      first: this.yearRange[0],
+      last: this.yearRange[this.yearRange.length - 1],
+      random: random(this.yearRange[0], this.yearRange[1]),
+    };
+    this.year = propertyOrInt('initialYear', initialYears);
+
+    const initialRegions = {
+      first: 0,
+      last: this.data.regions.length - 1,
+      random: random(0, this.data.regions.length - 1),
+    };
+    this.regionIndex = propertyOrInt('initialRegion', initialRegions);
+
+    if (!this.data.languages.includes(o.lang))
+      throw new Error(
+        `Invalid option: lang=${o.lang}. (Wanted: one of ${this.data.languages}`
+      );
+    this.language = o.lang;
   }
 
   _formatAnomaly(anomaly) {
@@ -210,12 +254,6 @@ const redrawComplete = true;
 
 async function main() {
   const data = await fetchData();
-  const maxUnc = []
-    .concat(...data.regions.map((r) => r.uncertainties))
-    .filter((u) => Number.isFinite(u))
-    .sort()
-    .reverse();
-  console.log(maxUnc);
   const wn = new WarmingNavigator(
     document.querySelector('.warming-navigator'),
     data,

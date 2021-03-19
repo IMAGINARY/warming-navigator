@@ -161,7 +161,13 @@ async function main(configPath) {
     ],
     [Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY]
   );
-  const wsd = { yearRange, validYearRange, regions };
+  const languages = Object.keys(
+    config.regions
+      .map((r) => r.title)
+      .reduce((cur, acc) => ({ ...acc, ...cur }), {})
+  );
+
+  const wsd = { yearRange, validYearRange, languages, regions };
   console.log(JSON.stringify(wsd, null, 2));
 }
 
