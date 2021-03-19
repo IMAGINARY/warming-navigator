@@ -1,10 +1,15 @@
 import ready from 'document-ready';
 import random from 'lodash.random';
 
+import ShowRYSelector from './region-year-selector/show-r-y-selector';
+import ShowValidRYSelector from './region-year-selector/show-valid-r-y-selector';
+import AdjustToValidRYSelector from './region-year-selector/adjust-to-valid-r-y-selector';
+
 const defaultOptions = {
   lang: 'en',
   minYear: 'valid', // 'data', 'valid', <number>
   maxYear: 'data', // 'data', 'valid', <number>
+  invalidYear: 'show', // 'show', 'show-valid', 'adjust-to-valid'
   initialYear: 'random', // 'first', 'last', 'random', <number>
   initialRegion: 'random', // 'first', 'last', 'random', <number>
 };
@@ -29,7 +34,14 @@ class WarmingNavigator {
   }
 
   _processOptions(o) {
-    const propertyOrInt = (optionKey, obj) => {
+    console.log('Options:', o);
+    const assert = (cond, key, types) => {
+      if (!cond) {
+        const msg = `Invalid option: ${key}=${o[key]}. (Wanted: ${types})`;
+        throw new Error(msg);
+      }
+    };
+    const propertyOrInt = function (optionKey, obj) {
       const optionValue = o[optionKey];
 
       if (typeof obj[optionValue] !== 'undefined') return obj[optionValue];
@@ -37,45 +49,64 @@ class WarmingNavigator {
       const num = Number.parseInt(optionValue, 10);
       if (Number.isFinite(num)) return num;
 
-      throw new Error(
-        `Invalid option: ${optionKey}=${optionValue}. (Wanted: Integer or one of ${Object.keys(
-          obj
-        )})`
-      );
+      assert(false, optionKey, ['<Integer>', ...Object.keys(obj)]);
+
+      return null;
     };
 
     const minYears = {
       data: this.data.yearRange[0],
       valid: this.data.validYearRange[0],
     };
+    this.minYear = propertyOrInt('minYear', minYears);
+
     const maxYears = {
       data: this.data.yearRange[1],
       valid: this.data.validYearRange[1],
     };
-    this.yearRange = [
-      propertyOrInt('minYear', minYears),
-      propertyOrInt('maxYear', maxYears),
-    ];
+    this.maxYear = propertyOrInt('maxYear', maxYears);
 
     const initialYears = {
-      first: this.yearRange[0],
-      last: this.yearRange[this.yearRange.length - 1],
-      random: random(this.yearRange[0], this.yearRange[1]),
+      first: this.minYear,
+      last: this.maxYear,
+      random: random(this.minYear, this.maxYear),
     };
-    this.year = propertyOrInt('initialYear', initialYears);
+    const initialYear = propertyOrInt('initialYear', initialYears);
 
     const initialRegions = {
       first: 0,
       last: this.data.regions.length - 1,
       random: random(0, this.data.regions.length - 1),
     };
-    this.regionIndex = propertyOrInt('initialRegion', initialRegions);
+    const initialRegion = propertyOrInt('initialRegion', initialRegions);
 
-    if (!this.data.languages.includes(o.lang))
-      throw new Error(
-        `Invalid option: lang=${o.lang}. (Wanted: one of ${this.data.languages}`
-      );
+    assert(this.data.languages.includes(o.lang), 'lang', this.data.languages);
     this.language = o.lang;
+
+    const rySelectorClasses = {
+      'show': ShowRYSelector,
+      'show-valid': ShowValidRYSelector,
+      'adjust-to-valid': AdjustToValidRYSelector,
+    };
+    const RYSelectorClass = rySelectorClasses[o.invalidYear];
+    assert(
+      typeof RYSelectorClass !== 'undefined',
+      'invalidYear',
+      Object.keys(rySelectorClasses)
+    );
+
+    this.rySelector = new RYSelectorClass({
+      numRegions: this.data.regions.length,
+      region: initialRegion,
+      numYears: this.maxYear - this.minYear + 1,
+      year: initialYear - this.minYear,
+      validator: (r, y) => this.isValid(r, this.minYear + y),
+    });
+  }
+
+  isValid(regionIndex, year) {
+    const { anomaly } = this._getRecord(regionIndex, year);
+    return anomaly !== null;
   }
 
   _formatAnomaly(anomaly) {
@@ -180,59 +211,51 @@ class WarmingNavigator {
   }
 
   getRegion() {
-    return this.regionIndex;
+    return this.rySelector.getRegion();
   }
 
   getYear() {
-    return this.year;
+    return this.rySelector.getYear() + this.minYear;
+  }
+
+  getYearToShow() {
+    return this.rySelector.getYearToShow() + this.minYear;
   }
 
   setRegion(index) {
-    this.regionIndex = index;
+    this.rySelector.setRegion(index);
     this._update();
   }
 
   setYear(year) {
-    this.year = year;
+    this.rySelector.setYear(year - this.minYear);
     this._update();
   }
 
   prevRegion() {
-    this.setRegion(
-      (this.data.regions.length + this.getRegion() - 1) %
-        this.data.regions.length
-    );
+    this.rySelector.prevRegion();
+    this._update();
   }
 
   nextRegion() {
-    this.setRegion((this.getRegion() + 1) % this.data.regions.length);
+    this.rySelector.nextRegion();
+    this._update();
   }
 
   prevYear() {
-    this.setYear(
-      this.getYear() === this.yearRange[0]
-        ? this.yearRange[1]
-        : this.getYear() - 1
-    );
+    this.rySelector.prevYear();
+    this._update();
   }
 
   nextYear() {
-    this.setYear(
-      this.getYear() === this.yearRange[1]
-        ? this.yearRange[0]
-        : this.getYear() + 1
-    );
-  }
-
-  setYearRange(min, max) {
-    this.yearRange = [min, max];
-    this.setYear(Math.max(min, Math.min(this.getYear(), max)));
+    this.rySelector.nextYear();
+    this._update();
   }
 
   _update() {
     const { region, year, anomaly, uncertainty, color } = this._getRecord(
-      this.regionIndex,
-      this.year
+      this.rySelector.getRegion(),
+      this.rySelector.getYearToShow() + this.minYear
     );
     this._displayRecord(region, year, anomaly, uncertainty, color);
   }
@@ -259,7 +282,6 @@ async function main() {
     data,
     getOptions()
   );
-  wn.setYearRange(data.validYearRange[0], data.yearRange[1]);
   document.addEventListener('keydown', (event) => {
     if (redrawComplete) {
       switch (event.key) {
