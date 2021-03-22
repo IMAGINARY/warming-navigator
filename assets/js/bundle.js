@@ -488,19 +488,19 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-function fetchData() {
+function fetchData(_x) {
   return _fetchData.apply(this, arguments);
 }
 
 function _fetchData() {
-  _fetchData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+  _fetchData = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(dataset) {
     var response, data;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return fetch('./assets/data/data-europe-ext.json');
+            return fetch("./assets/data/".concat(dataset, ".json"));
 
           case 2:
             response = _context.sent;
@@ -546,7 +546,7 @@ function _main() {
               defaults: defaultOptions
             });
             _context2.next = 5;
-            return fetchData();
+            return fetchData(mainOptions.dataset);
 
           case 5:
             data = _context2.sent;
@@ -591,6 +591,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.wheel = exports.keyboard = exports.warmingNavigator = exports.main = void 0;
 var main = {
+  dataset: 'europe-ext',
+  // <string>
   sort: true,
   // <boolean>
   keyboard: true,
@@ -643,6 +645,8 @@ require("core-js/modules/es.array.includes.js");
 require("core-js/modules/es.string.includes.js");
 
 require("core-js/modules/es.array.concat.js");
+
+require("core-js/modules/es.regexp.exec.js");
 
 function parseBoolean(s) {
   if (s === '' || s === 'true' || s === '1') return true;
@@ -724,7 +728,24 @@ function stringParser() {
   return parseString;
 }
 
+var datasetURIRegexp = /[^A-Za-z0-9_-]/;
+
+function parseDataset(s) {
+  var match = datasetURIRegexp.exec(s);
+
+  if (match === null) {
+    return s;
+  }
+
+  throw new TypeError("Illegal character in dataset name: ".concat(match[0]));
+}
+
+function datasetParser() {
+  return parseDataset;
+}
+
 var main = {
+  dataset: datasetParser(),
   sort: booleanParser(),
   keyboard: booleanParser(),
   wheel: booleanParser()
@@ -754,7 +775,7 @@ var wheel = {
 };
 exports.wheel = wheel;
 
-},{"core-js/modules/es.array.concat.js":140,"core-js/modules/es.array.includes.js":145,"core-js/modules/es.object.define-property.js":160,"core-js/modules/es.string.includes.js":174}],7:[function(require,module,exports){
+},{"core-js/modules/es.array.concat.js":140,"core-js/modules/es.array.includes.js":145,"core-js/modules/es.object.define-property.js":160,"core-js/modules/es.regexp.exec.js":173,"core-js/modules/es.string.includes.js":174}],7:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }

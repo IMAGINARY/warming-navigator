@@ -1,4 +1,5 @@
 export const main = {
+  dataset: 'europe-ext', // <string>
   sort: true, // <boolean>
   keyboard: true, // <boolean>
   wheel: false, // <boolean>

@@ -55,7 +55,22 @@ function stringParser() {
   return parseString;
 }
 
+const datasetURIRegexp = /[^A-Za-z0-9_-]/;
+
+function parseDataset(s) {
+  const match = datasetURIRegexp.exec(s);
+  if (match === null) {
+    return s;
+  }
+  throw new TypeError(`Illegal character in dataset name: ${match[0]}`);
+}
+
+function datasetParser() {
+  return parseDataset;
+}
+
 export const main = {
+  dataset: datasetParser(),
   sort: booleanParser(),
   keyboard: booleanParser(),
   wheel: booleanParser(),

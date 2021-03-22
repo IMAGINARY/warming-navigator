@@ -8,8 +8,8 @@ import WarmingNavigator from './warming-navigator';
 import Keyboard from './input/keyboard';
 import Wheel from './input/wheel';
 
-async function fetchData() {
-  const response = await fetch('./assets/data/data-europe-ext.json');
+async function fetchData(dataset) {
+  const response = await fetch(`./assets/data/${dataset}.json`);
   const data = await response.json();
   return data;
 }
@@ -25,7 +25,7 @@ async function main() {
   const mainOptions = { ...defaultOptions.main, ...options.main };
   console.log({ options, defaults: defaultOptions });
 
-  const data = await fetchData();
+  const data = await fetchData(mainOptions.dataset);
   if (mainOptions.sort) {
     const lang =
       options.warmingNavigator.lang ?? defaultOptions.warmingNavigator.lang;
