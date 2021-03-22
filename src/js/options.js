@@ -1,6 +1,8 @@
 import pickBy from 'lodash.pickby';
+import mapValues from 'lodash.mapvalues';
 
 import * as defaultOptions from './defaultOptions';
+import * as optionParsers from './optionParsers';
 
 function collision(...objs) {
   const keys = [].concat(...objs.map((o) => Object.keys(o)));
@@ -19,6 +21,18 @@ if (collidingDefaultOptions.length > 0) {
   );
 }
 
+function checkParserAvailability() {
+  Object.keys(defaultOptions).forEach((key1, value1) => {
+    Object.keys(value1).forEach((key2) => {
+      if (typeof optionParsers?.[key1][key2] !== 'function') {
+        throw new Error(`Missing parser for option ${key1}.${key2}`);
+      }
+    });
+  });
+}
+
+checkParserAvailability();
+
 function sanitize(obj, sanitizerObj) {
   return pickBy(obj, (v, k) => typeof sanitizerObj[k] !== 'undefined');
 }
@@ -31,10 +45,7 @@ export function getOptions() {
   const searchParams = new URLSearchParams(window.location.search);
   const options = Object.fromEntries(searchParams.entries());
 
-  return Object.fromEntries(
-    Object.keys(defaultOptions).map((key) => [
-      key,
-      sanitize(options, defaultOptions[key]),
-    ])
+  return mapValues(defaultOptions, (v1, k1) =>
+    mapValues(sanitize(options, v1), (v2, k2) => optionParsers[k1][k2](v2))
   );
 }
