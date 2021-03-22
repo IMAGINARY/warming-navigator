@@ -1,6 +1,6 @@
 import Input from './input';
 
-import { wheel as defaultOptions } from '../defaultOptions';
+import { wheel as defaultOptions } from '../options/defaultOptions';
 
 function swapProps(o, keyA, keyB) {
   const valueA = o[keyA];

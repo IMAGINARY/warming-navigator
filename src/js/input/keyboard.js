@@ -2,7 +2,7 @@ import over from 'lodash.over';
 
 import Input from './input';
 
-import { keyboard as defaultOptions } from '../defaultOptions';
+import { keyboard as defaultOptions } from '../options/defaultOptions';
 
 function ifKey(key, cb) {
   return (e) => (e.key === key ? cb() : undefined);

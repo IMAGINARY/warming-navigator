@@ -1,8 +1,8 @@
 import ready from 'document-ready';
 
-import * as defaultOptions from './defaultOptions';
+import * as defaultOptions from './options/defaultOptions';
 
-import { getOptions } from './options';
+import { getOptions } from './options/options';
 
 import WarmingNavigator from './warming-navigator';
 import Keyboard from './input/keyboard';

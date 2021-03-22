@@ -1,6 +1,6 @@
 import random from 'lodash.random';
 
-import { warmingNavigator as defaultOptions } from './defaultOptions';
+import { warmingNavigator as defaultOptions } from './options/defaultOptions';
 
 import ShowRYSelector from './region-year-selector/show-r-y-selector';
 import ShowValidRYSelector from './region-year-selector/show-valid-r-y-selector';
