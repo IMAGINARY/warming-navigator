@@ -1,5 +1,7 @@
 import ready from 'document-ready';
 
+import getOptions from './options';
+
 import WarmingNavigator from './warming-navigator';
 import Keyboard from './input/keyboard';
 import Wheel from './input/wheel';
@@ -10,23 +12,24 @@ async function fetchData() {
   return data;
 }
 
-function getOptions() {
-  const searchParams = new URLSearchParams(window.location.search);
-  const options = Object.fromEntries(searchParams.entries());
-  return options;
-}
-
 async function main() {
   const options = getOptions();
+  const {
+    mainOptions,
+    warmingNavigatorOptions,
+    keyboardOptions,
+    wheelOptions,
+  } = options;
+  console.log(options);
 
   const data = await fetchData();
   const el = document.querySelector('.warming-navigator');
-  const wn = new WarmingNavigator(el, data, options);
+  const wn = new WarmingNavigator(el, data, warmingNavigatorOptions);
 
-  const keyboard = new Keyboard();
+  const keyboard = new Keyboard(keyboardOptions);
   keyboard.attach(wn);
 
-  const wheel = new Wheel();
+  const wheel = new Wheel(wheelOptions);
   wheel.attach(wn);
 }
 
