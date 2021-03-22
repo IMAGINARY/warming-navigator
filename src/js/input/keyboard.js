@@ -1,11 +1,6 @@
 import Input from './input';
 
-const defaultOptions = {
-  prevRegionKey: 'ArrowLeft',
-  nextRegionKey: 'ArrowRight',
-  prevYearKey: 'ArrowDown',
-  nextYearKey: 'ArrowUp',
-};
+import { keyboard as defaultOptions } from '../defaultOptions';
 
 function ifKey(key, cb) {
   return (e) => (e.key === key ? cb() : undefined);

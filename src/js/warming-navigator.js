@@ -1,17 +1,10 @@
 import random from 'lodash.random';
 
+import { warmingNavigator as defaultOptions } from './defaultOptions';
+
 import ShowRYSelector from './region-year-selector/show-r-y-selector';
 import ShowValidRYSelector from './region-year-selector/show-valid-r-y-selector';
 import AdjustToValidRYSelector from './region-year-selector/adjust-to-valid-r-y-selector';
-
-const defaultOptions = {
-  lang: 'en',
-  minYear: 'valid', // 'data', 'valid', <number>
-  maxYear: 'data', // 'data', 'valid', <number>
-  invalidYear: 'show', // 'show', 'show-valid', 'adjust-to-valid'
-  initialYear: 'random', // 'first', 'last', 'random', <number>
-  initialRegion: 'random', // 'first', 'last', 'random', <number>
-};
 
 function mixColor(c1, c2, t) {
   return Array(3)
@@ -33,7 +26,6 @@ export default class WarmingNavigator {
   }
 
   _processOptions(o) {
-    console.log('Options:', o);
     const assert = (cond, key, types) => {
       if (!cond) {
         const msg = `Invalid option: ${key}=${o[key]}. (Wanted: ${types})`;

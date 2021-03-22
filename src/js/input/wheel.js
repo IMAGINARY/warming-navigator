@@ -1,11 +1,6 @@
 import Input from './input';
 
-const defaultOptions = {
-  delta: 53,
-  invertX: false,
-  invertY: false,
-  regionHorYearVert: true,
-};
+import { wheel as defaultOptions } from '../defaultOptions';
 
 function swapProps(o, keyA, keyB) {
   const valueA = o[keyA];
