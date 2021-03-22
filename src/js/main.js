@@ -4,6 +4,8 @@ import random from 'lodash.random';
 import ShowRYSelector from './region-year-selector/show-r-y-selector';
 import ShowValidRYSelector from './region-year-selector/show-valid-r-y-selector';
 import AdjustToValidRYSelector from './region-year-selector/adjust-to-valid-r-y-selector';
+import Keyboard from './input/keyboard';
+import Wheel from './input/wheel';
 
 const defaultOptions = {
   lang: 'en',
@@ -273,66 +275,16 @@ function getOptions() {
   return options;
 }
 
-const redrawComplete = true;
-
 async function main() {
   const data = await fetchData();
-  const wn = new WarmingNavigator(
-    document.querySelector('.warming-navigator'),
-    data,
-    getOptions()
-  );
-  document.addEventListener('keydown', (event) => {
-    if (redrawComplete) {
-      switch (event.key) {
-        case 'ArrowLeft':
-          wn.prevRegion();
-          break;
-        case 'ArrowRight':
-          wn.nextRegion();
-          break;
-        case 'ArrowDown':
-          wn.prevYear();
-          break;
-        case 'ArrowUp':
-          wn.nextYear();
-          break;
-        default:
-          break;
-      }
-      //      redrawComplete = false;
-      //      requestAnimationFrame(() => {redrawComplete=true;});
-    }
-  });
-  let deltaX = 0;
-  let deltaY = 0;
-  const stepX = 53.0;
-  const stepY = 53;
-  document.addEventListener('wheel', (event) => {
-    if (event.deltaMode === WheelEvent.DOM_DELTA_PIXEL) {
-      deltaX += event.deltaX;
-      deltaY += event.deltaY;
-      console.log({ deltaX, deltaY, event });
-      while (deltaX <= -stepX) {
-        wn.prevRegion();
-        deltaX += stepX;
-      }
-      while (deltaX >= stepX) {
-        wn.nextRegion();
-        deltaX -= stepX;
-      }
-      while (deltaY <= -stepY) {
-        wn.prevYear();
-        deltaY += stepY;
-      }
-      while (deltaY >= stepY) {
-        wn.nextYear();
-        deltaY -= stepY;
-      }
-    } else {
-      console.log(event);
-    }
-  });
+  const el = document.querySelector('.warming-navigator');
+  const wn = new WarmingNavigator(el, data, getOptions());
+
+  const keyboard = new Keyboard();
+  keyboard.attach(wn);
+
+  const wheel = new Wheel();
+  wheel.attach(wn);
 }
 
 ready(main);
