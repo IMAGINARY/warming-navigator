@@ -22,7 +22,7 @@ if (collidingDefaultOptions.length > 0) {
 }
 
 function checkParserAvailability() {
-  Object.keys(defaultOptions).forEach((key1, value1) => {
+  Object.entries(defaultOptions).forEach(([key1, value1]) => {
     Object.keys(value1).forEach((key2) => {
       if (typeof optionParsers?.[key1][key2] !== 'function') {
         throw new Error(`Missing parser for option ${key1}.${key2}`);
