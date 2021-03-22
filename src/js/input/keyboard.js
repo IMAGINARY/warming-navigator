@@ -1,13 +1,11 @@
+import over from 'lodash.over';
+
 import Input from './input';
 
 import { keyboard as defaultOptions } from '../defaultOptions';
 
 function ifKey(key, cb) {
   return (e) => (e.key === key ? cb() : undefined);
-}
-
-function addKeyDownListener(key, cb) {
-  document.addEventListener('keydown', ifKey(key, cb));
 }
 
 export default class Keyboard extends Input {
@@ -19,9 +17,19 @@ export default class Keyboard extends Input {
       ...options,
     };
 
-    addKeyDownListener(prevRegionKey, this._prevRegion.bind(this));
-    addKeyDownListener(nextRegionKey, this._nextRegion.bind(this));
-    addKeyDownListener(prevYearKey, this._prevYear.bind(this));
-    addKeyDownListener(nextYearKey, this._nextYear.bind(this));
+    this._callback = over([
+      ifKey(prevRegionKey, this._prevRegion.bind(this)),
+      ifKey(nextRegionKey, this._nextRegion.bind(this)),
+      ifKey(prevYearKey, this._prevYear.bind(this)),
+      ifKey(nextYearKey, this._nextYear.bind(this)),
+    ]);
+  }
+
+  _attachListeners() {
+    document.addEventListener('keydown', this._callback);
+  }
+
+  _detachListeners() {
+    document.removeEventListener('keydown', this._callback);
   }
 }

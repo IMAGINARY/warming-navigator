@@ -46,7 +46,7 @@ export default class Wheel extends Input {
       swapProps(this._stepFuncs.y, 'dec', 'inc');
     }
 
-    document.addEventListener('wheel', (e) => this._handleWheel(e));
+    this._callback = this._handleWheel.bind(this);
   }
 
   _handleWheel(event) {
@@ -70,5 +70,13 @@ export default class Wheel extends Input {
         this._deltaY -= this._stepDelta;
       }
     }
+  }
+
+  _attachListeners() {
+    document.addEventListener('wheel', this._callback);
+  }
+
+  _detachListeners() {
+    document.removeEventListener('wheel', this._callback);
   }
 }

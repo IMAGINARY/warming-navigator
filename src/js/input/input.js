@@ -5,15 +5,20 @@ export default class Input {
 
   attach(warmingNavigator) {
     this._warmingNavigators.push(warmingNavigator);
+    if (this._warmingNavigators.length === 1) {
+      this._attachListeners();
+    }
   }
 
   detach(warmingNavigator) {
     const i = this._warmingNavigators.indexOf(warmingNavigator);
     if (i !== -1) {
       this._warmingNavigators.splice(i, 1);
-      return true;
+      if (this._warmingNavigators.length === 0) {
+        this._detachListeners();
+      }
     }
-    return false;
+    return i !== -1;
   }
 
   isAttached(warmingNavigator) {
@@ -35,4 +40,10 @@ export default class Input {
   _nextRegion() {
     this._warmingNavigators.forEach((wn) => wn.nextRegion());
   }
+
+  // eslint-disable-next-line class-methods-use-this
+  _attachListeners() {}
+
+  // eslint-disable-next-line class-methods-use-this
+  _detachListeners() {}
 }

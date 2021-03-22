@@ -78,6 +78,10 @@ var Input = /*#__PURE__*/function () {
     key: "attach",
     value: function attach(warmingNavigator) {
       this._warmingNavigators.push(warmingNavigator);
+
+      if (this._warmingNavigators.length === 1) {
+        this._attachListeners();
+      }
     }
   }, {
     key: "detach",
@@ -87,10 +91,12 @@ var Input = /*#__PURE__*/function () {
       if (i !== -1) {
         this._warmingNavigators.splice(i, 1);
 
-        return true;
+        if (this._warmingNavigators.length === 0) {
+          this._detachListeners();
+        }
       }
 
-      return false;
+      return i !== -1;
     }
   }, {
     key: "isAttached",
@@ -124,7 +130,15 @@ var Input = /*#__PURE__*/function () {
       this._warmingNavigators.forEach(function (wn) {
         return wn.nextRegion();
       });
-    }
+    } // eslint-disable-next-line class-methods-use-this
+
+  }, {
+    key: "_attachListeners",
+    value: function _attachListeners() {} // eslint-disable-next-line class-methods-use-this
+
+  }, {
+    key: "_detachListeners",
+    value: function _detachListeners() {}
   }]);
 
   return Input;
@@ -182,6 +196,8 @@ require("core-js/modules/es.object.set-prototype-of.js");
 
 require("core-js/modules/es.object.get-prototype-of.js");
 
+var _lodash = _interopRequireDefault(require("lodash.over"));
+
 var _input = _interopRequireDefault(require("./input"));
 
 var _defaultOptions = require("../defaultOptions");
@@ -195,6 +211,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -216,10 +236,6 @@ function ifKey(key, cb) {
   };
 }
 
-function addKeyDownListener(key, cb) {
-  document.addEventListener('keydown', ifKey(key, cb));
-}
-
 var Keyboard = /*#__PURE__*/function (_Input) {
   _inherits(Keyboard, _Input);
 
@@ -238,19 +254,28 @@ var Keyboard = /*#__PURE__*/function (_Input) {
         prevYearKey = _defaultOptions$optio.prevYearKey,
         nextYearKey = _defaultOptions$optio.nextYearKey;
 
-    addKeyDownListener(prevRegionKey, _this._prevRegion.bind(_assertThisInitialized(_this)));
-    addKeyDownListener(nextRegionKey, _this._nextRegion.bind(_assertThisInitialized(_this)));
-    addKeyDownListener(prevYearKey, _this._prevYear.bind(_assertThisInitialized(_this)));
-    addKeyDownListener(nextYearKey, _this._nextYear.bind(_assertThisInitialized(_this)));
+    _this._callback = (0, _lodash["default"])([ifKey(prevRegionKey, _this._prevRegion.bind(_assertThisInitialized(_this))), ifKey(nextRegionKey, _this._nextRegion.bind(_assertThisInitialized(_this))), ifKey(prevYearKey, _this._prevYear.bind(_assertThisInitialized(_this))), ifKey(nextYearKey, _this._nextYear.bind(_assertThisInitialized(_this)))]);
     return _this;
   }
+
+  _createClass(Keyboard, [{
+    key: "_attachListeners",
+    value: function _attachListeners() {
+      document.addEventListener('keydown', this._callback);
+    }
+  }, {
+    key: "_detachListeners",
+    value: function _detachListeners() {
+      document.removeEventListener('keydown', this._callback);
+    }
+  }]);
 
   return Keyboard;
 }(_input["default"]);
 
 exports["default"] = Keyboard;
 
-},{"../defaultOptions":1,"./input":2,"core-js/modules/es.array.filter.js":141,"core-js/modules/es.array.for-each.js":142,"core-js/modules/es.array.iterator.js":147,"core-js/modules/es.function.bind.js":151,"core-js/modules/es.object.create.js":156,"core-js/modules/es.object.define-properties.js":157,"core-js/modules/es.object.define-property.js":158,"core-js/modules/es.object.get-own-property-descriptor.js":161,"core-js/modules/es.object.get-own-property-descriptors.js":162,"core-js/modules/es.object.get-prototype-of.js":163,"core-js/modules/es.object.keys.js":164,"core-js/modules/es.object.set-prototype-of.js":165,"core-js/modules/es.object.to-string.js":166,"core-js/modules/es.reflect.construct.js":169,"core-js/modules/es.string.iterator.js":173,"core-js/modules/es.symbol.description.js":175,"core-js/modules/es.symbol.iterator.js":176,"core-js/modules/es.symbol.js":177,"core-js/modules/web.dom-collections.for-each.js":179,"core-js/modules/web.dom-collections.iterator.js":180}],4:[function(require,module,exports){
+},{"../defaultOptions":1,"./input":2,"core-js/modules/es.array.filter.js":141,"core-js/modules/es.array.for-each.js":142,"core-js/modules/es.array.iterator.js":147,"core-js/modules/es.function.bind.js":151,"core-js/modules/es.object.create.js":156,"core-js/modules/es.object.define-properties.js":157,"core-js/modules/es.object.define-property.js":158,"core-js/modules/es.object.get-own-property-descriptor.js":161,"core-js/modules/es.object.get-own-property-descriptors.js":162,"core-js/modules/es.object.get-prototype-of.js":163,"core-js/modules/es.object.keys.js":164,"core-js/modules/es.object.set-prototype-of.js":165,"core-js/modules/es.object.to-string.js":166,"core-js/modules/es.reflect.construct.js":169,"core-js/modules/es.string.iterator.js":173,"core-js/modules/es.symbol.description.js":175,"core-js/modules/es.symbol.iterator.js":176,"core-js/modules/es.symbol.js":177,"core-js/modules/web.dom-collections.for-each.js":179,"core-js/modules/web.dom-collections.iterator.js":180,"lodash.over":"lodash.over"}],4:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -384,9 +409,7 @@ var Wheel = /*#__PURE__*/function (_Input) {
       swapProps(_this._stepFuncs.y, 'dec', 'inc');
     }
 
-    document.addEventListener('wheel', function (e) {
-      return _this._handleWheel(e);
-    });
+    _this._callback = _this._handleWheel.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -421,6 +444,16 @@ var Wheel = /*#__PURE__*/function (_Input) {
           this._deltaY -= this._stepDelta;
         }
       }
+    }
+  }, {
+    key: "_attachListeners",
+    value: function _attachListeners() {
+      document.addEventListener('wheel', this._callback);
+    }
+  }, {
+    key: "_detachListeners",
+    value: function _detachListeners() {
+      document.removeEventListener('wheel', this._callback);
     }
   }]);
 
