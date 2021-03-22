@@ -14,12 +14,24 @@ async function fetchData() {
   return data;
 }
 
+function sortData(data, language) {
+  data.regions.sort((ra, rb) =>
+    String(ra?.title[language]).localeCompare(rb?.title[language])
+  );
+}
+
 async function main() {
   const options = getOptions();
   const mainOptions = { ...defaultOptions.main, ...options.main };
   console.log({ options, defaults: defaultOptions });
 
   const data = await fetchData();
+  if (mainOptions.sort) {
+    const lang =
+      options.warmingNavigator.lang ?? defaultOptions.warmingNavigator.lang;
+    sortData(data, lang);
+  }
+
   const el = document.querySelector('.warming-navigator');
   const wn = new WarmingNavigator(el, data, options.warmingNavigator);
 

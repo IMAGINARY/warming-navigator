@@ -1,4 +1,5 @@
 export const main = {
+  sort: true, // <boolean>
   keyboard: true, // <boolean>
   wheel: false, // <boolean>
 };

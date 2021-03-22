@@ -56,6 +56,7 @@ function stringParser() {
 }
 
 export const main = {
+  sort: booleanParser(),
   keyboard: booleanParser(),
   wheel: booleanParser(),
 };
