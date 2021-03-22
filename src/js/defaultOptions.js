@@ -1,4 +1,7 @@
-export const main = {};
+export const main = {
+  keyboard: true, // <boolean>
+  wheel: false, // <boolean>
+};
 
 export const warmingNavigator = {
   lang: 'en',

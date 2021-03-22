@@ -7,7 +7,12 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.wheel = exports.keyboard = exports.warmingNavigator = exports.main = void 0;
-var main = {};
+var main = {
+  keyboard: true,
+  // <boolean>
+  wheel: false // <boolean>
+
+};
 exports.main = main;
 var warmingNavigator = {
   lang: 'en',
@@ -427,6 +432,38 @@ exports["default"] = Wheel;
 },{"../defaultOptions":1,"./input":2,"core-js/modules/es.array.filter.js":141,"core-js/modules/es.array.for-each.js":142,"core-js/modules/es.array.iterator.js":147,"core-js/modules/es.function.bind.js":151,"core-js/modules/es.object.create.js":156,"core-js/modules/es.object.define-properties.js":157,"core-js/modules/es.object.define-property.js":158,"core-js/modules/es.object.get-own-property-descriptor.js":161,"core-js/modules/es.object.get-own-property-descriptors.js":162,"core-js/modules/es.object.get-prototype-of.js":163,"core-js/modules/es.object.keys.js":164,"core-js/modules/es.object.set-prototype-of.js":165,"core-js/modules/es.object.to-string.js":166,"core-js/modules/es.reflect.construct.js":169,"core-js/modules/es.string.iterator.js":173,"core-js/modules/es.symbol.description.js":175,"core-js/modules/es.symbol.iterator.js":176,"core-js/modules/es.symbol.js":177,"core-js/modules/web.dom-collections.for-each.js":179,"core-js/modules/web.dom-collections.iterator.js":180}],5:[function(require,module,exports){
 "use strict";
 
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+require("core-js/modules/es.object.define-property.js");
+
+require("core-js/modules/es.object.keys.js");
+
+require("core-js/modules/es.symbol.js");
+
+require("core-js/modules/es.array.filter.js");
+
+require("core-js/modules/es.object.get-own-property-descriptor.js");
+
+require("core-js/modules/es.array.for-each.js");
+
+require("core-js/modules/web.dom-collections.for-each.js");
+
+require("core-js/modules/es.object.get-own-property-descriptors.js");
+
+require("core-js/modules/es.object.define-properties.js");
+
+require("core-js/modules/es.weak-map.js");
+
+require("core-js/modules/es.string.iterator.js");
+
+require("core-js/modules/es.array.iterator.js");
+
+require("core-js/modules/web.dom-collections.iterator.js");
+
+require("core-js/modules/es.symbol.description.js");
+
+require("core-js/modules/es.symbol.iterator.js");
+
 require("regenerator-runtime/runtime.js");
 
 require("core-js/modules/es.promise.js");
@@ -435,7 +472,9 @@ require("core-js/modules/es.object.to-string.js");
 
 var _documentReady = _interopRequireDefault(require("document-ready"));
 
-var _options = _interopRequireDefault(require("./options"));
+var defaultOptions = _interopRequireWildcard(require("./defaultOptions"));
+
+var _options = require("./options");
 
 var _warmingNavigator = _interopRequireDefault(require("./warming-navigator"));
 
@@ -443,7 +482,17 @@ var _keyboard = _interopRequireDefault(require("./input/keyboard"));
 
 var _wheel = _interopRequireDefault(require("./input/wheel"));
 
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -488,27 +537,36 @@ function main() {
 
 function _main() {
   _main = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-    var options, mainOptions, warmingNavigatorOptions, keyboardOptions, wheelOptions, data, el, wn, keyboard, wheel;
+    var options, mainOptions, data, el, wn, keyboard, wheel;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            options = (0, _options["default"])();
-            mainOptions = options.mainOptions, warmingNavigatorOptions = options.warmingNavigatorOptions, keyboardOptions = options.keyboardOptions, wheelOptions = options.wheelOptions;
-            console.log(options);
+            options = (0, _options.getOptions)();
+            mainOptions = _objectSpread(_objectSpread({}, defaultOptions.main), options.main);
+            console.log({
+              options: options,
+              defaults: defaultOptions
+            });
             _context2.next = 5;
             return fetchData();
 
           case 5:
             data = _context2.sent;
             el = document.querySelector('.warming-navigator');
-            wn = new _warmingNavigator["default"](el, data, warmingNavigatorOptions);
-            keyboard = new _keyboard["default"](keyboardOptions);
-            keyboard.attach(wn);
-            wheel = new _wheel["default"](wheelOptions);
-            wheel.attach(wn);
+            wn = new _warmingNavigator["default"](el, data, options.warmingNavigator);
 
-          case 12:
+            if (mainOptions.keyboard) {
+              keyboard = new _keyboard["default"](options.keyboard);
+              keyboard.attach(wn);
+            }
+
+            if (mainOptions.wheel) {
+              wheel = new _wheel["default"](options.wheel);
+              wheel.attach(wn);
+            }
+
+          case 10:
           case "end":
             return _context2.stop();
         }
@@ -520,7 +578,7 @@ function _main() {
 
 (0, _documentReady["default"])(main);
 
-},{"./input/keyboard":3,"./input/wheel":4,"./options":6,"./warming-navigator":12,"core-js/modules/es.object.to-string.js":166,"core-js/modules/es.promise.js":168,"document-ready":"document-ready","regenerator-runtime/runtime.js":183}],6:[function(require,module,exports){
+},{"./defaultOptions":1,"./input/keyboard":3,"./input/wheel":4,"./options":6,"./warming-navigator":12,"core-js/modules/es.array.filter.js":141,"core-js/modules/es.array.for-each.js":142,"core-js/modules/es.array.iterator.js":147,"core-js/modules/es.object.define-properties.js":157,"core-js/modules/es.object.define-property.js":158,"core-js/modules/es.object.get-own-property-descriptor.js":161,"core-js/modules/es.object.get-own-property-descriptors.js":162,"core-js/modules/es.object.keys.js":164,"core-js/modules/es.object.to-string.js":166,"core-js/modules/es.promise.js":168,"core-js/modules/es.string.iterator.js":173,"core-js/modules/es.symbol.description.js":175,"core-js/modules/es.symbol.iterator.js":176,"core-js/modules/es.symbol.js":177,"core-js/modules/es.weak-map.js":178,"core-js/modules/web.dom-collections.for-each.js":179,"core-js/modules/web.dom-collections.iterator.js":180,"document-ready":"document-ready","regenerator-runtime/runtime.js":183}],6:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -548,7 +606,8 @@ require("core-js/modules/es.object.get-own-property-descriptor.js");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = getOptions;
+exports.getDefaultOptions = getDefaultOptions;
+exports.getOptions = getOptions;
 
 require("core-js/modules/es.array.concat.js");
 
@@ -655,11 +714,15 @@ function sanitize(obj, sanitizerObj) {
   });
 }
 
+function getDefaultOptions() {
+  return defaultOptions;
+}
+
 function getOptions() {
   var searchParams = new URLSearchParams(window.location.search);
   var options = Object.fromEntries(searchParams.entries());
   return Object.fromEntries(Object.keys(defaultOptions).map(function (key) {
-    return ["".concat(key, "Options"), sanitize(options, defaultOptions[key])];
+    return [key, sanitize(options, defaultOptions[key])];
   }));
 }
 

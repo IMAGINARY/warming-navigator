@@ -23,13 +23,17 @@ function sanitize(obj, sanitizerObj) {
   return pickBy(obj, (v, k) => typeof sanitizerObj[k] !== 'undefined');
 }
 
-export default function getOptions() {
+export function getDefaultOptions() {
+  return defaultOptions;
+}
+
+export function getOptions() {
   const searchParams = new URLSearchParams(window.location.search);
   const options = Object.fromEntries(searchParams.entries());
 
   return Object.fromEntries(
     Object.keys(defaultOptions).map((key) => [
-      `${key}Options`,
+      key,
       sanitize(options, defaultOptions[key]),
     ])
   );
