@@ -640,6 +640,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.wheel = exports.keyboard = exports.warmingNavigator = exports.main = void 0;
 
+require("core-js/modules/es.number.parse-int.js");
+
+require("core-js/modules/es.number.constructor.js");
+
 require("core-js/modules/es.array.includes.js");
 
 require("core-js/modules/es.string.includes.js");
@@ -659,7 +663,7 @@ function booleanParser() {
 }
 
 function parseInt(s) {
-  var i = parseInt(s);
+  var i = Number.parseInt(s, 10);
 
   if ("".concat(i) === s) {
     return i;
@@ -775,7 +779,7 @@ var wheel = {
 };
 exports.wheel = wheel;
 
-},{"core-js/modules/es.array.concat.js":140,"core-js/modules/es.array.includes.js":145,"core-js/modules/es.object.define-property.js":160,"core-js/modules/es.regexp.exec.js":173,"core-js/modules/es.string.includes.js":174}],7:[function(require,module,exports){
+},{"core-js/modules/es.array.concat.js":140,"core-js/modules/es.array.includes.js":145,"core-js/modules/es.number.constructor.js":155,"core-js/modules/es.number.parse-int.js":157,"core-js/modules/es.object.define-property.js":160,"core-js/modules/es.regexp.exec.js":173,"core-js/modules/es.string.includes.js":174}],7:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }

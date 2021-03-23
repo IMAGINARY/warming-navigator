@@ -9,7 +9,7 @@ function booleanParser() {
 }
 
 function parseInt(s) {
-  const i = parseInt(s);
+  const i = Number.parseInt(s, 10);
   if (`${i}` === s) {
     return i;
   }
