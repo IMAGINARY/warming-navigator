@@ -1,4 +1,5 @@
 import random from 'lodash.random';
+import Color from 'color';
 
 import { warmingNavigator as defaultOptions } from './options/defaultOptions';
 
@@ -6,11 +7,7 @@ import ShowRYSelector from './region-year-selector/show-r-y-selector';
 import ShowValidRYSelector from './region-year-selector/show-valid-r-y-selector';
 import AdjustToValidRYSelector from './region-year-selector/adjust-to-valid-r-y-selector';
 
-function mixColor(c1, c2, t) {
-  return Array(3)
-    .fill(0)
-    .map((_, i) => (1 - t) * c1[i] + t * c2[i]);
-}
+import palettes from './palettes';
 
 export default class WarmingNavigator {
   constructor(element, data, options) {
@@ -73,6 +70,13 @@ export default class WarmingNavigator {
 
     assert(this.data.languages.includes(o.lang), 'lang', this.data.languages);
     this.language = o.lang;
+
+    const { blues, reds, invalid } = palettes[o.palette];
+    this.palette = {
+      blues: blues.map((hex) => Color(hex)),
+      reds: reds.map((hex) => Color(hex)),
+      invalid: Color(invalid),
+    };
 
     const rySelectorClasses = {
       'show': ShowRYSelector,
@@ -144,52 +148,22 @@ export default class WarmingNavigator {
       indexForYear >= 0 && indexForYear < region.uncertainties.length
         ? region.uncertainties[indexForYear]
         : null;
-    const color = WarmingNavigator.getCssColor(
-      anomaly,
-      region.shift,
-      region.scale
-    );
+    const color = this.getCssColor(anomaly, region.shift, region.scale);
     return { region: regionTitle, year, anomaly, uncertainty, color };
   }
 
-  static getCssColor(anomaly, shift, scale) {
-    const toCss = ([r, g, b]) => `rgb(${r}, ${g}, ${b})`;
-    return toCss(WarmingNavigator.getColor(anomaly, shift, scale));
+  getCssColor(anomaly, shift, scale) {
+    return this.getColor(anomaly, shift, scale).hex();
   }
 
-  static getColor(anomaly, shift, scale) {
+  getColor(anomaly, shift, scale) {
     const v = (anomaly - shift) * scale;
     const t = Math.abs(v);
 
-    const white = [255, 255, 255];
-    const black = [0, 0, 0];
+    const { blues, reds, invalid } = this.palette;
 
-    const blues = [
-      [247, 251, 255],
-      [222, 235, 247],
-      [198, 219, 239],
-      [158, 202, 225],
-      [107, 174, 214],
-      [66, 146, 198],
-      [33, 113, 181],
-      [8, 81, 156],
-      [8, 48, 107],
-    ];
-
-    const reds = [
-      [255, 245, 240],
-      [254, 224, 210],
-      [252, 187, 161],
-      [252, 146, 114],
-      [251, 106, 74],
-      [239, 59, 44],
-      [203, 24, 29],
-      [165, 15, 21],
-      [103, 0, 13],
-    ];
-
-    if (!Number.isFinite(v)) {
-      return mixColor(black, white, 0.6);
+    if (anomaly === null || !Number.isFinite(v)) {
+      return invalid;
     }
     const colors = v > 0 ? reds : blues;
     if (t > 1.0) {
@@ -198,7 +172,8 @@ export default class WarmingNavigator {
     const idxLo = Math.floor(t * (colors.length - 1));
     const idxHi = Math.ceil(t * (colors.length - 1));
     const u = t * (colors.length - 1) - idxLo;
-    return mixColor(colors[idxLo], colors[idxHi], u);
+
+    return colors[idxLo].mix(colors[idxHi], u);
   }
 
   getRegion() {

@@ -1,3 +1,5 @@
+import palettes from '../palettes';
+
 function parseBoolean(s) {
   if (s === '' || s === 'true' || s === '1') return true;
   if (s === 'false' || s === '0') return false;
@@ -69,6 +71,10 @@ function datasetParser() {
   return parseDataset;
 }
 
+function paletteParser() {
+  return stringsParser(...Object.keys(palettes));
+}
+
 export const main = {
   dataset: datasetParser(),
   sort: booleanParser(),
@@ -83,6 +89,7 @@ export const warmingNavigator = {
   invalidYear: stringsParser('show', 'show-valid', 'adjust-to-valid'),
   initialYear: intOrStringsParser('first', 'last', 'random'),
   initialRegion: intOrStringsParser('first', 'last', 'random'),
+  palette: paletteParser(),
 };
 
 export const keyboard = {
