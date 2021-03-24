@@ -116,6 +116,8 @@ function processOther(data, options) {
   // Just to make it explicit which options are used
   return {
     sort: options.sort,
+    singleCellView: options.singleCellView,
+    gridView: options.gridView,
   };
 }
 
@@ -136,7 +138,7 @@ export default function processOptions(data, optionsNoDefaults) {
   const RYSelectorClass = processRYSelector(options);
   const inputs = processInputs(options);
 
-  const { sort } = processOther(data, options);
+  const { sort, singleCellView, gridView } = processOther(data, options);
 
   return {
     initialRegion,
@@ -151,5 +153,7 @@ export default function processOptions(data, optionsNoDefaults) {
     inputs,
 
     sort,
+    singleCellView,
+    gridView,
   };
 }

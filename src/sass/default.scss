@@ -58,3 +58,37 @@ body {
   font-size: 300%;
   opacity: 30%;
 }
+
+.anomaly-table {
+  position: relative;
+  width: 100%;
+  overflow: scroll;
+  font-size: xx-small;
+  margin-top: 1em;
+
+  &:empty {
+    display: none;
+  }
+
+  table {
+    margin: auto;
+
+    td {
+      text-align: center;
+    }
+  }
+
+  $outline-width: 2.5px;
+
+  .the-year {
+    outline: yellow $outline-width solid;
+  }
+
+  .the-year-to-show {
+    outline: deeppink $outline-width solid;
+  }
+
+  .the-year.the-year-to-show {
+    outline: lightgreen $outline-width solid;
+  }
+}

@@ -1,7 +1,7 @@
 export default class Controller {
-  constructor(model, rySelector, view, inputs) {
+  constructor(model, rySelector, views, inputs) {
     this.model = model;
-    this.view = view;
+    this.views = views;
     this.rySelector = rySelector;
     this.inputs = inputs;
 
@@ -12,8 +12,6 @@ export default class Controller {
       input.on('increase-year', () => this.rySelector.nextYear());
     });
 
-    console.log(rySelector);
-
-    rySelector.on('changed', () => this.view.update());
+    rySelector.on('changed', () => this.views.forEach((v) => v.update()));
   }
 }

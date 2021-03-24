@@ -50,4 +50,23 @@ body {
   font-size: 300%;
   opacity: 30%; }
 
+.anomaly-table {
+  position: relative;
+  width: 100%;
+  overflow: scroll;
+  font-size: xx-small;
+  margin-top: 1em; }
+  .anomaly-table:empty {
+    display: none; }
+  .anomaly-table table {
+    margin: auto; }
+    .anomaly-table table td {
+      text-align: center; }
+  .anomaly-table .the-year {
+    outline: yellow 2.5px solid; }
+  .anomaly-table .the-year-to-show {
+    outline: deeppink 2.5px solid; }
+  .anomaly-table .the-year.the-year-to-show {
+    outline: lightgreen 2.5px solid; }
+
 /*# sourceMappingURL=default.css.map */
