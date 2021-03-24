@@ -963,6 +963,10 @@ require("core-js/modules/es.reflect.construct.js");
 
 require("core-js/modules/es.object.create.js");
 
+require("core-js/modules/es.reflect.get.js");
+
+require("core-js/modules/es.object.get-own-property-descriptor.js");
+
 require("core-js/modules/es.object.define-property.js");
 
 require("core-js/modules/es.symbol.js");
@@ -997,6 +1001,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -1036,10 +1044,18 @@ var AdjustToValidRYSelector = /*#__PURE__*/function (_ShowValidRYSelector) {
   }
 
   _createClass(AdjustToValidRYSelector, [{
-    key: "_setYearToShow",
-    value: function _setYearToShow(year) {
-      this.yearToShow = year;
-      this.year = year;
+    key: "computeRY",
+    value: function computeRY(baseRegion, regionOffset, baseYear, yearOffset) {
+      var _get$call = _get(_getPrototypeOf(AdjustToValidRYSelector.prototype), "computeRY", this).call(this, baseRegion, regionOffset, baseYear, yearOffset),
+          region = _get$call.region,
+          validYear = _get$call.validYear;
+
+      return {
+        region: region,
+        year: validYear,
+        yearToShow: validYear,
+        validYear: validYear
+      };
     }
   }]);
 
@@ -1048,7 +1064,7 @@ var AdjustToValidRYSelector = /*#__PURE__*/function (_ShowValidRYSelector) {
 
 exports["default"] = AdjustToValidRYSelector;
 
-},{"./show-valid-r-y-selector":12,"core-js/modules/es.array.iterator.js":154,"core-js/modules/es.object.create.js":164,"core-js/modules/es.object.define-property.js":166,"core-js/modules/es.object.get-prototype-of.js":171,"core-js/modules/es.object.set-prototype-of.js":173,"core-js/modules/es.object.to-string.js":174,"core-js/modules/es.reflect.construct.js":177,"core-js/modules/es.string.iterator.js":181,"core-js/modules/es.symbol.description.js":183,"core-js/modules/es.symbol.iterator.js":184,"core-js/modules/es.symbol.js":185,"core-js/modules/web.dom-collections.iterator.js":188}],10:[function(require,module,exports){
+},{"./show-valid-r-y-selector":12,"core-js/modules/es.array.iterator.js":154,"core-js/modules/es.object.create.js":164,"core-js/modules/es.object.define-property.js":166,"core-js/modules/es.object.get-own-property-descriptor.js":169,"core-js/modules/es.object.get-prototype-of.js":171,"core-js/modules/es.object.set-prototype-of.js":173,"core-js/modules/es.object.to-string.js":174,"core-js/modules/es.reflect.construct.js":177,"core-js/modules/es.reflect.get.js":178,"core-js/modules/es.string.iterator.js":181,"core-js/modules/es.symbol.description.js":183,"core-js/modules/es.symbol.iterator.js":184,"core-js/modules/es.symbol.js":185,"core-js/modules/web.dom-collections.iterator.js":188}],10:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -1083,8 +1099,6 @@ require("core-js/modules/es.object.set-prototype-of.js");
 require("core-js/modules/es.object.get-prototype-of.js");
 
 var _events = _interopRequireDefault(require("events"));
-
-var _lodash = _interopRequireDefault(require("lodash.clamp"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -1125,50 +1139,69 @@ var RYSelector = /*#__PURE__*/function (_EventEmitter) {
 
     _this = _super.call(this);
     _this.numRegions = numRegions;
-    _this._region = region;
     _this.numYears = numYears;
-    _this._year = year;
-    _this._yearToShow = year;
+    _this.region = region;
+    _this.year = year;
+    _this.initialized = false;
     return _this;
   }
 
   _createClass(RYSelector, [{
-    key: "region",
-    get: function get() {
-      return this._region;
-    },
-    set: function set(r) {
-      var emit = r !== this._region;
-      this._region = r;
+    key: "ensureInitializedRY",
+    value: function ensureInitializedRY() {
+      if (!this.initialized) {
+        this.mutateRY(this.region, 0, this.year, 0, false);
+        this.initialized = true;
+      }
+    } // Should be overwritten in subclasses
 
-      if (emit) {
+  }, {
+    key: "computeRY",
+    value: function computeRY(baseRegion, regionOffset, baseYear, yearOffset) {
+      var nr = this.getNumRegions();
+      var region = (baseRegion + nr + regionOffset % nr) % nr;
+      var ny = this.getNumYears();
+      var year = (baseYear + ny + yearOffset % ny) % ny;
+      var yearToShow = year;
+      return {
+        region: region,
+        year: year,
+        yearToShow: yearToShow
+      };
+    }
+  }, {
+    key: "mutateRY",
+    value: function mutateRY(baseRegion, regionOffset, baseYear, yearOffset) {
+      var emit = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : true;
+
+      var _this$computeRY = this.computeRY(baseRegion, regionOffset, baseYear, yearOffset),
+          region = _this$computeRY.region,
+          year = _this$computeRY.year,
+          yearToShow = _this$computeRY.yearToShow;
+
+      var regionChanged = region !== this.region;
+      this.region = region;
+
+      if (emit && regionChanged) {
         this.emit('region-changed');
       }
-    }
-  }, {
-    key: "year",
-    get: function get() {
-      return this._year;
-    },
-    set: function set(y) {
-      var emit = y !== this._year;
-      this._year = y;
 
-      if (emit) {
+      var yearChanged = year !== this.year;
+      this.year = year;
+
+      if (emit && yearChanged) {
         this.emit('year-changed');
       }
-    }
-  }, {
-    key: "yearToShow",
-    get: function get() {
-      return this._yearToShow;
-    },
-    set: function set(y) {
-      var emit = y !== this._yearToShow;
-      this._yearToShow = y;
 
-      if (emit) {
+      var yearToShowChanged = yearToShow !== this.yeartoShow;
+      this.yearToShow = yearToShow;
+
+      if (emit && yearToShowChanged) {
         this.emit('year-to-show-changed');
+      }
+
+      if (emit && (regionChanged || yearChanged || yearToShowChanged)) {
+        this.emit('changed');
       }
     }
   }, {
@@ -1179,22 +1212,23 @@ var RYSelector = /*#__PURE__*/function (_EventEmitter) {
   }, {
     key: "getRegion",
     value: function getRegion() {
+      this.ensureInitializedRY();
       return this.region;
     }
   }, {
     key: "prevRegion",
     value: function prevRegion() {
-      this.region = (this.numRegions + this.region - 1) % this.numRegions;
+      this.mutateRY(this.getRegion(), -1, this.getYear(), 0);
     }
   }, {
     key: "nextRegion",
     value: function nextRegion() {
-      this.region = (this.region + 1) % this.numRegions;
+      this.mutateRY(this.getRegion(), +1, this.getYear(), 0);
     }
   }, {
     key: "setRegion",
     value: function setRegion(region) {
-      this.region = (0, _lodash["default"])(region, this.numRegions);
+      this.mutateRY(region, 0, this.getYear(), 0);
     }
   }, {
     key: "getNumYears",
@@ -1204,27 +1238,29 @@ var RYSelector = /*#__PURE__*/function (_EventEmitter) {
   }, {
     key: "getYear",
     value: function getYear() {
+      this.ensureInitializedRY();
       return this.year;
     }
   }, {
     key: "getYearToShow",
     value: function getYearToShow() {
-      return this.getYear();
+      this.ensureInitializedRY();
+      return this.yearToShow;
     }
   }, {
     key: "prevYear",
     value: function prevYear() {
-      this.year = (this.numYears + this.year - 1) % this.numYears;
+      this.mutateRY(this.getRegion(), 0, this.getYear(), -1);
     }
   }, {
     key: "nextYear",
     value: function nextYear() {
-      this.year = (this.year + 1) % this.numYears;
+      this.mutateRY(this.getRegion(), 0, this.getYear(), 1);
     }
   }, {
     key: "setYear",
     value: function setYear(year) {
-      this.year = (0, _lodash["default"])(year - this.minYear, this.numYears);
+      this.mutateRY(this.getRegion(), 0, year, 0);
     }
   }]);
 
@@ -1233,7 +1269,7 @@ var RYSelector = /*#__PURE__*/function (_EventEmitter) {
 
 exports["default"] = RYSelector;
 
-},{"core-js/modules/es.array.iterator.js":154,"core-js/modules/es.object.create.js":164,"core-js/modules/es.object.define-property.js":166,"core-js/modules/es.object.get-prototype-of.js":171,"core-js/modules/es.object.set-prototype-of.js":173,"core-js/modules/es.object.to-string.js":174,"core-js/modules/es.reflect.construct.js":177,"core-js/modules/es.string.iterator.js":181,"core-js/modules/es.symbol.description.js":183,"core-js/modules/es.symbol.iterator.js":184,"core-js/modules/es.symbol.js":185,"core-js/modules/web.dom-collections.iterator.js":188,"events":20,"lodash.clamp":"lodash.clamp"}],11:[function(require,module,exports){
+},{"core-js/modules/es.array.iterator.js":154,"core-js/modules/es.object.create.js":164,"core-js/modules/es.object.define-property.js":166,"core-js/modules/es.object.get-prototype-of.js":171,"core-js/modules/es.object.set-prototype-of.js":173,"core-js/modules/es.object.to-string.js":174,"core-js/modules/es.reflect.construct.js":177,"core-js/modules/es.string.iterator.js":181,"core-js/modules/es.symbol.description.js":183,"core-js/modules/es.symbol.iterator.js":184,"core-js/modules/es.symbol.js":185,"core-js/modules/web.dom-collections.iterator.js":188,"events":20}],11:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -1312,6 +1348,10 @@ require("core-js/modules/es.reflect.construct.js");
 
 require("core-js/modules/es.object.create.js");
 
+require("core-js/modules/es.reflect.get.js");
+
+require("core-js/modules/es.object.get-own-property-descriptor.js");
+
 require("core-js/modules/es.object.define-property.js");
 
 require("core-js/modules/es.symbol.js");
@@ -1346,6 +1386,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -1385,9 +1429,19 @@ var ShowValidRYSelector = /*#__PURE__*/function (_ValidatingRYSelector) {
   }
 
   _createClass(ShowValidRYSelector, [{
-    key: "getYearToShow",
-    value: function getYearToShow() {
-      return this.yearToShow;
+    key: "computeRY",
+    value: function computeRY(baseRegion, regionOffset, baseYear, yearOffset) {
+      var _get$call = _get(_getPrototypeOf(ShowValidRYSelector.prototype), "computeRY", this).call(this, baseRegion, regionOffset, baseYear, yearOffset),
+          region = _get$call.region,
+          year = _get$call.year,
+          validYear = _get$call.validYear;
+
+      return {
+        region: region,
+        year: year,
+        yearToShow: validYear,
+        validYear: validYear
+      };
     }
   }]);
 
@@ -1396,7 +1450,7 @@ var ShowValidRYSelector = /*#__PURE__*/function (_ValidatingRYSelector) {
 
 exports["default"] = ShowValidRYSelector;
 
-},{"./validating-r-y-selector":13,"core-js/modules/es.array.iterator.js":154,"core-js/modules/es.object.create.js":164,"core-js/modules/es.object.define-property.js":166,"core-js/modules/es.object.get-prototype-of.js":171,"core-js/modules/es.object.set-prototype-of.js":173,"core-js/modules/es.object.to-string.js":174,"core-js/modules/es.reflect.construct.js":177,"core-js/modules/es.string.iterator.js":181,"core-js/modules/es.symbol.description.js":183,"core-js/modules/es.symbol.iterator.js":184,"core-js/modules/es.symbol.js":185,"core-js/modules/web.dom-collections.iterator.js":188}],13:[function(require,module,exports){
+},{"./validating-r-y-selector":13,"core-js/modules/es.array.iterator.js":154,"core-js/modules/es.object.create.js":164,"core-js/modules/es.object.define-property.js":166,"core-js/modules/es.object.get-own-property-descriptor.js":169,"core-js/modules/es.object.get-prototype-of.js":171,"core-js/modules/es.object.set-prototype-of.js":173,"core-js/modules/es.object.to-string.js":174,"core-js/modules/es.reflect.construct.js":177,"core-js/modules/es.reflect.get.js":178,"core-js/modules/es.string.iterator.js":181,"core-js/modules/es.symbol.description.js":183,"core-js/modules/es.symbol.iterator.js":184,"core-js/modules/es.symbol.js":185,"core-js/modules/web.dom-collections.iterator.js":188}],13:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -1485,22 +1539,21 @@ var ValidatingRYSelector = /*#__PURE__*/function (_RYSelector) {
       year: year
     });
     _this.validator = validator;
-    _this.yearToShow = _this.getClosestValidYear(_this.year);
     return _this;
   }
 
   _createClass(ValidatingRYSelector, [{
     key: "isValid",
-    value: function isValid(year) {
-      return this.validator(this.getRegion(), year);
+    value: function isValid(region, year) {
+      return this.validator(region, year);
     }
   }, {
     key: "getPrevValidYear",
-    value: function getPrevValidYear(year) {
+    value: function getPrevValidYear(region, year) {
       for (var i = 0; i < this.numYears; i += 1) {
         var y = (this.numYears + year - i) % this.numYears;
 
-        if (this.isValid(y)) {
+        if (this.isValid(region, y)) {
           return y;
         }
       }
@@ -1509,11 +1562,11 @@ var ValidatingRYSelector = /*#__PURE__*/function (_RYSelector) {
     }
   }, {
     key: "getNextValidYear",
-    value: function getNextValidYear(year) {
+    value: function getNextValidYear(region, year) {
       for (var i = 0; i < this.numYears; i += 1) {
         var y = (year + i) % this.numYears;
 
-        if (this.isValid(y)) {
+        if (this.isValid(region, y)) {
           return y;
         }
       }
@@ -1522,73 +1575,47 @@ var ValidatingRYSelector = /*#__PURE__*/function (_RYSelector) {
     }
   }, {
     key: "getClosestValidYear",
-    value: function getClosestValidYear(year) {
+    value: function getClosestValidYear(region, year) {
       for (var i = 0; i < this.numYears; i += 1) {
         var ly = (this.numYears + year - i) % this.numYears;
         var hy = (year + i) % this.numYears;
 
-        if (this.isValid(ly)) {
+        if (this.isValid(region, ly)) {
           return ly;
         }
 
-        if (this.isValid(hy)) {
+        if (this.isValid(region, hy)) {
           return hy;
         }
       }
 
       return year;
-    }
-  }, {
-    key: "prevRegion",
-    value: function prevRegion() {
-      _get(_getPrototypeOf(ValidatingRYSelector.prototype), "prevRegion", this).call(this);
+    } // Should be overwritten in subclasses
 
-      this._setYearToShow(this.getClosestValidYear(this.year));
-    }
   }, {
-    key: "nextRegion",
-    value: function nextRegion() {
-      _get(_getPrototypeOf(ValidatingRYSelector.prototype), "nextRegion", this).call(this);
+    key: "computeRY",
+    value: function computeRY(baseRegion, regionOffset, baseYear, yearOffset) {
+      var _get$call = _get(_getPrototypeOf(ValidatingRYSelector.prototype), "computeRY", this).call(this, baseRegion, regionOffset, baseYear, yearOffset),
+          region = _get$call.region,
+          year = _get$call.year,
+          yearToShow = _get$call.yearToShow;
 
-      this._setYearToShow(this.getClosestValidYear(this.year));
-    }
-  }, {
-    key: "setRegion",
-    value: function setRegion(region) {
-      _get(_getPrototypeOf(ValidatingRYSelector.prototype), "setRegion", this).call(this, region);
+      var validYear;
 
-      this._setYearToShow(this.getClosestValidYear(this.year));
-    }
-  }, {
-    key: "prevYear",
-    value: function prevYear() {
-      _get(_getPrototypeOf(ValidatingRYSelector.prototype), "prevYear", this).call(this);
+      if (yearOffset < 0) {
+        validYear = this.getPrevValidYear(region, year);
+      } else if (yearOffset > 0) {
+        validYear = this.getNextValidYear(region, year);
+      } else {
+        validYear = this.getClosestValidYear(region, year);
+      }
 
-      this._setYearToShow(this.getPrevValidYear(this.year));
-    }
-  }, {
-    key: "nextYear",
-    value: function nextYear() {
-      _get(_getPrototypeOf(ValidatingRYSelector.prototype), "nextYear", this).call(this);
-
-      this._setYearToShow(this.getNextValidYear(this.year));
-    }
-  }, {
-    key: "_setYearToShow",
-    value: function _setYearToShow(year) {
-      this.yearToShow = year;
-    }
-  }, {
-    key: "getYearToShow",
-    value: function getYearToShow() {
-      return this.yearToShow;
-    }
-  }, {
-    key: "setYear",
-    value: function setYear(year) {
-      _get(_getPrototypeOf(ValidatingRYSelector.prototype), "setYear", this).call(this, year);
-
-      this._setYearToShow(this.getClosestValidYear(this.year));
+      return {
+        region: region,
+        year: year,
+        yearToShow: yearToShow,
+        validYear: validYear
+      };
     }
   }]);
 
@@ -1700,13 +1727,8 @@ var Controller = function Controller(model, rySelector, view, inputs) {
       return _this.rySelector.nextYear();
     });
   });
-  rySelector.on('region-changed', function () {
-    return _this.view.update();
-  });
-  rySelector.on('year-changed', function () {
-    return _this.view.update();
-  });
-  rySelector.on('year-to-show-changed', function () {
+  console.log(rySelector);
+  rySelector.on('changed', function () {
     return _this.view.update();
   });
 };

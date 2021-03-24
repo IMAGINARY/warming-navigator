@@ -1,49 +1,63 @@
 import EventEmitter from 'events';
-import clamp from 'lodash.clamp';
 
 export default class RYSelector extends EventEmitter {
   constructor({ numRegions, region, numYears, year }) {
     super();
     this.numRegions = numRegions;
-    this._region = region;
     this.numYears = numYears;
-    this._year = year;
-    this._yearToShow = year;
+    this.region = region;
+    this.year = year;
+    this.initialized = false;
   }
 
-  get region() {
-    return this._region;
+  ensureInitializedRY() {
+    if (!this.initialized) {
+      this.mutateRY(this.region, 0, this.year, 0, false);
+      this.initialized = true;
+    }
   }
 
-  set region(r) {
-    const emit = r !== this._region;
-    this._region = r;
-    if (emit) {
+  // Should be overwritten in subclasses
+  computeRY(baseRegion, regionOffset, baseYear, yearOffset) {
+    const nr = this.getNumRegions();
+    const region = (baseRegion + nr + (regionOffset % nr)) % nr;
+
+    const ny = this.getNumYears();
+    const year = (baseYear + ny + (yearOffset % ny)) % ny;
+
+    const yearToShow = year;
+
+    return { region, year, yearToShow };
+  }
+
+  mutateRY(baseRegion, regionOffset, baseYear, yearOffset, emit = true) {
+    const { region, year, yearToShow } = this.computeRY(
+      baseRegion,
+      regionOffset,
+      baseYear,
+      yearOffset
+    );
+
+    const regionChanged = region !== this.region;
+    this.region = region;
+    if (emit && regionChanged) {
       this.emit('region-changed');
     }
-  }
 
-  get year() {
-    return this._year;
-  }
-
-  set year(y) {
-    const emit = y !== this._year;
-    this._year = y;
-    if (emit) {
+    const yearChanged = year !== this.year;
+    this.year = year;
+    if (emit && yearChanged) {
       this.emit('year-changed');
     }
-  }
 
-  get yearToShow() {
-    return this._yearToShow;
-  }
-
-  set yearToShow(y) {
-    const emit = y !== this._yearToShow;
-    this._yearToShow = y;
-    if (emit) {
+    const yearToShowChanged = yearToShow !== this.yeartoShow;
+    this.yearToShow = yearToShow;
+    if (emit && yearToShowChanged) {
       this.emit('year-to-show-changed');
+    }
+
+    if (emit && (regionChanged || yearChanged || yearToShowChanged)) {
+      this.emit('changed');
     }
   }
 
@@ -52,19 +66,20 @@ export default class RYSelector extends EventEmitter {
   }
 
   getRegion() {
+    this.ensureInitializedRY();
     return this.region;
   }
 
   prevRegion() {
-    this.region = (this.numRegions + this.region - 1) % this.numRegions;
+    this.mutateRY(this.getRegion(), -1, this.getYear(), 0);
   }
 
   nextRegion() {
-    this.region = (this.region + 1) % this.numRegions;
+    this.mutateRY(this.getRegion(), +1, this.getYear(), 0);
   }
 
   setRegion(region) {
-    this.region = clamp(region, this.numRegions);
+    this.mutateRY(region, 0, this.getYear(), 0);
   }
 
   getNumYears() {
@@ -72,22 +87,24 @@ export default class RYSelector extends EventEmitter {
   }
 
   getYear() {
+    this.ensureInitializedRY();
     return this.year;
   }
 
   getYearToShow() {
-    return this.getYear();
+    this.ensureInitializedRY();
+    return this.yearToShow;
   }
 
   prevYear() {
-    this.year = (this.numYears + this.year - 1) % this.numYears;
+    this.mutateRY(this.getRegion(), 0, this.getYear(), -1);
   }
 
   nextYear() {
-    this.year = (this.year + 1) % this.numYears;
+    this.mutateRY(this.getRegion(), 0, this.getYear(), 1);
   }
 
   setYear(year) {
-    this.year = clamp(year - this.minYear, this.numYears);
+    this.mutateRY(this.getRegion(), 0, year, 0);
   }
 }

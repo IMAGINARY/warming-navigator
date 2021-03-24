@@ -5,7 +5,14 @@ export default class ShowValidRYSelector extends ValidatingRYSelector {
     super({ numRegions, region, numYears, year, validator });
   }
 
-  getYearToShow() {
-    return this.yearToShow;
+  computeRY(baseRegion, regionOffset, baseYear, yearOffset) {
+    const { region, year, validYear } = super.computeRY(
+      baseRegion,
+      regionOffset,
+      baseYear,
+      yearOffset
+    );
+
+    return { region, year, yearToShow: validYear, validYear };
   }
 }

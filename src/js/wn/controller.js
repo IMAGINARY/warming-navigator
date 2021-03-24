@@ -12,8 +12,8 @@ export default class Controller {
       input.on('increase-year', () => this.rySelector.nextYear());
     });
 
-    rySelector.on('region-changed', () => this.view.update());
-    rySelector.on('year-changed', () => this.view.update());
-    rySelector.on('year-to-show-changed', () => this.view.update());
+    console.log(rySelector);
+
+    rySelector.on('changed', () => this.view.update());
   }
 }
