@@ -1,12 +1,8 @@
 import ready from 'document-ready';
 
-import * as defaultOptions from './options/defaultOptions';
+import { getOptions, getDefaultOptions } from './options/options';
 
-import { getOptions } from './options/options';
-
-import WarmingNavigator from './warming-navigator';
-import Keyboard from './input/keyboard';
-import Wheel from './input/wheel';
+import WarmingNavigator from './wn/warming-navigator';
 
 async function fetchData(dataset) {
   const response = await fetch(`./assets/data/${dataset}.json`);
@@ -14,36 +10,18 @@ async function fetchData(dataset) {
   return data;
 }
 
-function sortData(data, language) {
-  data.regions.sort((ra, rb) =>
-    String(ra?.title[language]).localeCompare(rb?.title[language])
-  );
-}
-
 async function main() {
-  const options = getOptions();
-  const mainOptions = { ...defaultOptions.main, ...options.main };
-  console.log({ options, defaults: defaultOptions });
+  const options = getOptions(true);
+  // eslint-disable-next-line no-console
+  console.log({ options, defaults: getDefaultOptions() });
 
-  const data = await fetchData(mainOptions.dataset);
-  if (mainOptions.sort) {
-    const lang =
-      options.warmingNavigator.lang ?? defaultOptions.warmingNavigator.lang;
-    sortData(data, lang);
-  }
+  const { dataset } = options;
+  const data = await fetchData(dataset);
 
-  const el = document.querySelector('.warming-navigator');
-  const wn = new WarmingNavigator(el, data, options.warmingNavigator);
+  const element = document.querySelector('#warming-navigator');
+  const wn = new WarmingNavigator(data, { ...options, element });
 
-  if (mainOptions.keyboard) {
-    const keyboard = new Keyboard(options.keyboard);
-    keyboard.attach(wn);
-  }
-
-  if (mainOptions.wheel) {
-    const wheel = new Wheel(options.wheel);
-    wheel.attach(wn);
-  }
+  global.warmingNavigator = wn;
 }
 
 ready(main);

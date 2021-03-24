@@ -5,7 +5,7 @@ export default class ShowValidRYSelector extends ValidatingRYSelector {
     super({ numRegions, region, numYears, year, validator });
   }
 
-  getYear() {
+  getYearToShow() {
     return this.yearToShow;
   }
 }

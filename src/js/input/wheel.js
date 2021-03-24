@@ -25,12 +25,12 @@ export default class Wheel extends Input {
 
     this._stepFuncs = {
       x: {
-        dec: this._prevRegion.bind(this),
-        inc: this._nextRegion.bind(this),
+        dec: this.handleDecreaseRegion.bind(this),
+        inc: this.handleIncreaseRegion.bind(this),
       },
       y: {
-        dec: this._prevYear.bind(this),
-        inc: this._nextYear.bind(this),
+        dec: this.handleDecreaseYear.bind(this),
+        inc: this.handleIncreaseYear.bind(this),
       },
     };
 
@@ -47,6 +47,7 @@ export default class Wheel extends Input {
     }
 
     this._callback = this._handleWheel.bind(this);
+    document.addEventListener('wheel', this._callback);
   }
 
   _handleWheel(event) {
@@ -70,13 +71,5 @@ export default class Wheel extends Input {
         this._deltaY -= this._stepDelta;
       }
     }
-  }
-
-  _attachListeners() {
-    document.addEventListener('wheel', this._callback);
-  }
-
-  _detachListeners() {
-    document.removeEventListener('wheel', this._callback);
   }
 }

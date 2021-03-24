@@ -1,11 +1,54 @@
+import EventEmitter from 'events';
 import clamp from 'lodash.clamp';
 
-export default class RYSelector {
+export default class RYSelector extends EventEmitter {
   constructor({ numRegions, region, numYears, year }) {
+    super();
     this.numRegions = numRegions;
-    this.region = region;
+    this._region = region;
     this.numYears = numYears;
-    this.year = year;
+    this._year = year;
+    this._yearToShow = year;
+  }
+
+  get region() {
+    return this._region;
+  }
+
+  set region(r) {
+    const emit = r !== this._region;
+    this._region = r;
+    if (emit) {
+      this.emit('region-changed');
+    }
+  }
+
+  get year() {
+    return this._year;
+  }
+
+  set year(y) {
+    const emit = y !== this._year;
+    this._year = y;
+    if (emit) {
+      this.emit('year-changed');
+    }
+  }
+
+  get yearToShow() {
+    return this._yearToShow;
+  }
+
+  set yearToShow(y) {
+    const emit = y !== this._yearToShow;
+    this._yearToShow = y;
+    if (emit) {
+      this.emit('year-to-show-changed');
+    }
+  }
+
+  getNumRegions() {
+    return this.numRegions;
   }
 
   getRegion() {
@@ -22,6 +65,10 @@ export default class RYSelector {
 
   setRegion(region) {
     this.region = clamp(region, this.numRegions);
+  }
+
+  getNumYears() {
+    return this.numYears;
   }
 
   getYear() {

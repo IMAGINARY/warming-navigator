@@ -1,49 +1,19 @@
-export default class Input {
-  constructor() {
-    this._warmingNavigators = [];
+import EventEmitter from 'events';
+
+export default class Input extends EventEmitter {
+  handleDecreaseYear() {
+    this.emit('decrease-year');
   }
 
-  attach(warmingNavigator) {
-    this._warmingNavigators.push(warmingNavigator);
-    if (this._warmingNavigators.length === 1) {
-      this._attachListeners();
-    }
+  handleIncreaseYear() {
+    this.emit('increase-year');
   }
 
-  detach(warmingNavigator) {
-    const i = this._warmingNavigators.indexOf(warmingNavigator);
-    if (i !== -1) {
-      this._warmingNavigators.splice(i, 1);
-      if (this._warmingNavigators.length === 0) {
-        this._detachListeners();
-      }
-    }
-    return i !== -1;
+  handleDecreaseRegion() {
+    this.emit('decrease-region');
   }
 
-  isAttached(warmingNavigator) {
-    return this._warmingNavigators.indexOf(warmingNavigator) !== -1;
+  handleIncreaseRegion() {
+    this.emit('increase-region');
   }
-
-  _prevYear() {
-    this._warmingNavigators.forEach((wn) => wn.prevYear());
-  }
-
-  _nextYear() {
-    this._warmingNavigators.forEach((wn) => wn.nextYear());
-  }
-
-  _prevRegion() {
-    this._warmingNavigators.forEach((wn) => wn.prevRegion());
-  }
-
-  _nextRegion() {
-    this._warmingNavigators.forEach((wn) => wn.nextRegion());
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  _attachListeners() {}
-
-  // eslint-disable-next-line class-methods-use-this
-  _detachListeners() {}
 }

@@ -18,18 +18,11 @@ export default class Keyboard extends Input {
     };
 
     this._callback = over([
-      ifKey(prevRegionKey, this._prevRegion.bind(this)),
-      ifKey(nextRegionKey, this._nextRegion.bind(this)),
-      ifKey(prevYearKey, this._prevYear.bind(this)),
-      ifKey(nextYearKey, this._nextYear.bind(this)),
+      ifKey(prevRegionKey, this.handleDecreaseRegion.bind(this)),
+      ifKey(nextRegionKey, this.handleIncreaseRegion.bind(this)),
+      ifKey(prevYearKey, this.handleDecreaseYear.bind(this)),
+      ifKey(nextYearKey, this.handleIncreaseYear.bind(this)),
     ]);
-  }
-
-  _attachListeners() {
     document.addEventListener('keydown', this._callback);
-  }
-
-  _detachListeners() {
-    document.removeEventListener('keydown', this._callback);
   }
 }

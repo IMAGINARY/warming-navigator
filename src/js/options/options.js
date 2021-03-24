@@ -38,14 +38,20 @@ function sanitize(obj, sanitizerObj) {
 }
 
 export function getDefaultOptions() {
-  return defaultOptions;
+  return Object.assign({}, ...Object.values(defaultOptions));
 }
 
-export function getOptions() {
+export function getOptions(withDefaults = true) {
   const searchParams = new URLSearchParams(window.location.search);
-  const options = Object.fromEntries(searchParams.entries());
+  const rawOptions = Object.fromEntries(searchParams.entries());
 
-  return mapValues(defaultOptions, (v1, k1) =>
-    mapValues(sanitize(options, v1), (v2, k2) => optionParsers[k1][k2](v2))
+  const categorizedOptions = mapValues(defaultOptions, (v1, k1) =>
+    mapValues(sanitize(rawOptions, v1), (v2, k2) => optionParsers[k1][k2](v2))
+  );
+
+  // merge all options together
+  return Object.assign(
+    withDefaults ? getDefaultOptions() : {},
+    ...Object.values(categorizedOptions)
   );
 }
