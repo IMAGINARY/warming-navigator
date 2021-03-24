@@ -2,6 +2,13 @@
   "regions": [
     {
       "title": {
+        "de": "Globale Landmasse",
+        "en": "Global land"
+      },
+      "url": "http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/global-land-TAVG-Trend.txt"
+    },
+    {
+      "title": {
         "de": "Albanien",
         "en": "Albania"
       },
