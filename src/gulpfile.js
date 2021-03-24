@@ -140,7 +140,7 @@ function data() {
     .pipe(
       rename((path) => ({
         ...path,
-        basename: path.basename.replace(/^config-/, 'data-'),
+        basename: path.basename.replace(/^config-/, ''),
       }))
     )
     .pipe(gulp.dest(`${OUTPUT_DIR}/assets/data`));
