@@ -2196,7 +2196,7 @@ function processInitialYear(minYear, maxYear, options) {
 }
 
 function processLanguage(data, options) {
-  assert(data.languages.includes(options.lang), 'lang', data.languages);
+  assert(data.languages.includes(options.lang), 'lang', options.lang, data.languages);
   return options.lang;
 }
 
@@ -2218,7 +2218,7 @@ function processPalette(options) {
 
 function processElement(options) {
   var element = options.element instanceof Element ? options.element : document.querySelector(options.element);
-  assert(element !== null, 'element', ['<Element>', '<query selector string>']);
+  assert(element !== null, 'element', options.element, ['<Element>', '<query selector string>']);
   return element;
 }
 
@@ -2229,7 +2229,7 @@ function processRYSelector(options) {
     'adjust-to-valid': _adjustToValidRYSelector["default"]
   };
   var RYSelectorClass = rySelectorClasses[options.invalidYear];
-  assert(typeof RYSelectorClass !== 'undefined', 'invalidYear', Object.keys(rySelectorClasses));
+  assert(typeof RYSelectorClass !== 'undefined', 'invalidYear', options.invalidYear, Object.keys(rySelectorClasses));
   return RYSelectorClass;
 }
 
