@@ -36,15 +36,18 @@ export default class WarmingNavigator {
     });
 
     const views = [];
-    if (typeof element !== 'undefined') {
+    for (let i = 0; i < 9; i += 1) {
+      const wnElem = document.querySelector(`#warming-navigator${i}`);
       const singleRecordView = new SingleRecordView(
-        element,
+        wnElem,
         model,
         rySelector,
         language,
         palette
       );
       views.push(singleRecordView);
+      const style = window.getComputedStyle(wnElem);
+      wnElem.title = `Font ${i}: ${style.fontFamily}`;
     }
 
     if (typeof gridViewElement !== 'undefined') {

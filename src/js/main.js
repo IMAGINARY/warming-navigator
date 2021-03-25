@@ -20,7 +20,7 @@ async function main() {
 
   const wnOptions = { ...options };
   if (options.singleCellView) {
-    wnOptions.element = document.querySelector('#warming-navigator');
+    wnOptions.element = document.querySelector('#warming-navigator0');
   }
   if (options.gridView) {
     wnOptions.gridViewElement = document.querySelector('#anomaly-table');

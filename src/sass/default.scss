@@ -2,12 +2,6 @@
 
 body,
 html {
-  width: 100%;
-  height: 100%;
-  display: grid;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
 }
 
 body {
@@ -15,15 +9,20 @@ body {
   /* font-family: 'Jura', sans-serif; */
   font-family: "VT323", monospace;
   /* font-family: 'Space Mono', monospace; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
+
+$scaleFactor: 0.6;
 
 .warming-navigator {
   position: relative;
-  width: 800px;
-  height: 480px;
+  width: calc(#{$scaleFactor} * 800px);
+  height: calc(#{$scaleFactor} * 480px);
   outline: 2px solid gray;
-  margin: auto;
-  cursor: none;
+  margin: 10px;
+  font-size: calc(#{$scaleFactor} * 100%);
 }
 
 .warming-navigator .region,
@@ -91,4 +90,56 @@ body {
   .the-year.the-year-to-show {
     outline: lightgreen $outline-width solid;
   }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+#warming-navigator0 {
+  font-family: 'Roboto Mono';
+  font-size: calc(#{$scaleFactor} * 0.825 * 100%);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap');
+#warming-navigator1 {
+  font-family: 'Syne Mono';
+  font-size: calc(#{$scaleFactor} * 0.9 * 100%);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata&display=swap');
+#warming-navigator2 {
+  font-family: 'Inconsolata';
+  font-size: calc(#{$scaleFactor} * 0.9 * 100%);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+#warming-navigator3 {
+  font-family: 'Source Code Pro';
+  font-size: calc(#{$scaleFactor} * 0.9 * 100%);
+}
+
+#warming-navigator4 {
+  font-family: 'VT323';
+}
+
+@import url('https://fonts.googleapis.com/css2?family=PT+Mono&display=swap');
+#warming-navigator5 {
+  font-family: 'PT Mono';
+  font-size: calc(#{$scaleFactor} * 0.9 * 100%);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+#warming-navigator6 {
+  font-family: 'Share Tech Mono';
+  font-size: calc(#{$scaleFactor} * 0.9 * 100%);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Nova+Mono&display=swap');
+#warming-navigator7 {
+  font-family: 'Nova Mono';
+  font-size: calc(#{$scaleFactor} * 0.9 * 100%);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Xanh+Mono&display=swap');
+#warming-navigator8 {
+  font-family: 'Xanh Mono';
+  font-size: calc(#{$scaleFactor} * 0.9 * 100%);
 }

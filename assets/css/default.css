@@ -1,26 +1,28 @@
 @import url(../fonts/vt323/index.css);
-body,
-html {
-  width: 100%;
-  height: 100%;
-  display: grid;
-  margin: 0;
-  padding: 0;
-  overflow: hidden; }
-
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=PT+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nova+Mono&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Xanh+Mono&display=swap");
 body {
   background-color: lightgray;
   /* font-family: 'Jura', sans-serif; */
   font-family: "VT323", monospace;
-  /* font-family: 'Space Mono', monospace; */ }
+  /* font-family: 'Space Mono', monospace; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; }
 
 .warming-navigator {
   position: relative;
-  width: 800px;
-  height: 480px;
+  width: calc(0.6 * 800px);
+  height: calc(0.6 * 480px);
   outline: 2px solid gray;
-  margin: auto;
-  cursor: none; }
+  margin: 10px;
+  font-size: calc(0.6 * 100%); }
 
 .warming-navigator .region,
 .warming-navigator .year {
@@ -68,5 +70,40 @@ body {
     outline: deeppink 2.5px solid; }
   .anomaly-table .the-year.the-year-to-show {
     outline: lightgreen 2.5px solid; }
+
+#warming-navigator0 {
+  font-family: 'Roboto Mono';
+  font-size: calc(0.6 * 0.825 * 100%); }
+
+#warming-navigator1 {
+  font-family: 'Syne Mono';
+  font-size: calc(0.6 * 0.9 * 100%); }
+
+#warming-navigator2 {
+  font-family: 'Inconsolata';
+  font-size: calc(0.6 * 0.9 * 100%); }
+
+#warming-navigator3 {
+  font-family: 'Source Code Pro';
+  font-size: calc(0.6 * 0.9 * 100%); }
+
+#warming-navigator4 {
+  font-family: 'VT323'; }
+
+#warming-navigator5 {
+  font-family: 'PT Mono';
+  font-size: calc(0.6 * 0.9 * 100%); }
+
+#warming-navigator6 {
+  font-family: 'Share Tech Mono';
+  font-size: calc(0.6 * 0.9 * 100%); }
+
+#warming-navigator7 {
+  font-family: 'Nova Mono';
+  font-size: calc(0.6 * 0.9 * 100%); }
+
+#warming-navigator8 {
+  font-family: 'Xanh Mono';
+  font-size: calc(0.6 * 0.9 * 100%); }
 
 /*# sourceMappingURL=default.css.map */

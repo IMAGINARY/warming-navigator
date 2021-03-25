@@ -491,7 +491,7 @@ function _main() {
             wnOptions = _objectSpread({}, options);
 
             if (options.singleCellView) {
-              wnOptions.element = document.querySelector('#warming-navigator');
+              wnOptions.element = document.querySelector('#warming-navigator0');
             }
 
             if (options.gridView) {
@@ -2524,6 +2524,8 @@ exports["default"] = void 0;
 
 require("core-js/modules/es.array.sort.js");
 
+require("core-js/modules/es.array.concat.js");
+
 require("core-js/modules/es.object.assign.js");
 
 var _optionProcessor = _interopRequireDefault(require("./option-processor"));
@@ -2569,9 +2571,12 @@ var WarmingNavigator = function WarmingNavigator(data, options) {
   });
   var views = [];
 
-  if (typeof element !== 'undefined') {
-    var singleRecordView = new _singleRecordView["default"](element, model, rySelector, language, palette);
+  for (var i = 0; i < 9; i += 1) {
+    var wnElem = document.querySelector("#warming-navigator".concat(i));
+    var singleRecordView = new _singleRecordView["default"](wnElem, model, rySelector, language, palette);
     views.push(singleRecordView);
+    var style = window.getComputedStyle(wnElem);
+    wnElem.title = "Font ".concat(i, ": ").concat(style.fontFamily);
   }
 
   if (typeof gridViewElement !== 'undefined') {
@@ -2589,7 +2594,7 @@ var WarmingNavigator = function WarmingNavigator(data, options) {
 
 exports["default"] = WarmingNavigator;
 
-},{"./controller":15,"./grid-view":16,"./model":17,"./option-processor":18,"./single-record-view":19,"core-js/modules/es.array.sort.js":159,"core-js/modules/es.object.assign.js":165,"core-js/modules/es.object.define-property.js":168}],22:[function(require,module,exports){
+},{"./controller":15,"./grid-view":16,"./model":17,"./option-processor":18,"./single-record-view":19,"core-js/modules/es.array.concat.js":149,"core-js/modules/es.array.sort.js":159,"core-js/modules/es.object.assign.js":165,"core-js/modules/es.object.define-property.js":168}],22:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
