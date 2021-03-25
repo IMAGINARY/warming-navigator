@@ -80,18 +80,28 @@ function processPalette(options) {
   };
 }
 
-function processElement(options) {
-  const element =
-    options.element instanceof Element
-      ? options.element
-      : document.querySelector(options.element);
+function parseAsElement(key, value, isOptional) {
+  if (isOptional && typeof value === 'undefined') {
+    return undefined;
+  }
 
-  assert(element !== null, 'element', options.element, [
+  const element =
+    value instanceof Element ? value : document.querySelector(value);
+
+  assert(element !== null, key, value, [
     '<Element>',
     '<query selector string>',
   ]);
 
   return element;
+}
+
+function processElement(options) {
+  return parseAsElement('element', options.element, true);
+}
+
+function processGridViewElement(options) {
+  return parseAsElement('gridViewElement', options.gridViewElement, true);
 }
 
 function processRYSelector(options) {
@@ -146,8 +156,9 @@ export default function processOptions(data, optionsNoDefaults) {
   const element = processElement(options);
   const RYSelectorClass = processRYSelector(options);
   const inputs = processInputs(options);
+  const gridViewElement = processGridViewElement(options);
 
-  const { sort, singleCellView, gridView } = processOther(data, options);
+  const { sort } = processOther(data, options);
 
   return {
     initialRegion,
@@ -160,9 +171,8 @@ export default function processOptions(data, optionsNoDefaults) {
     element,
     RYSelectorClass,
     inputs,
+    gridViewElement,
 
     sort,
-    singleCellView,
-    gridView,
   };
 }

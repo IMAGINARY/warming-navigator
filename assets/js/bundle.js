@@ -471,7 +471,7 @@ function main() {
 
 function _main() {
   _main = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-    var options, dataset, data, element, wn;
+    var options, dataset, data, wnOptions, wn;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
@@ -488,13 +488,20 @@ function _main() {
 
           case 5:
             data = _context2.sent;
-            element = document.querySelector('#warming-navigator');
-            wn = new _warmingNavigator["default"](data, _objectSpread(_objectSpread({}, options), {}, {
-              element: element
-            }));
+            wnOptions = _objectSpread({}, options);
+
+            if (options.singleCellView) {
+              wnOptions.element = document.querySelector('#warming-navigator');
+            }
+
+            if (options.gridView) {
+              wnOptions.gridViewElement = document.querySelector('#anomaly-table');
+            }
+
+            wn = new _warmingNavigator["default"](data, wnOptions);
             global.warmingNavigator = wn;
 
-          case 9:
+          case 11:
           case "end":
             return _context2.stop();
         }
@@ -524,7 +531,11 @@ var main = {
   // <boolean>
   keyboard: true,
   // <boolean>
-  wheel: false // <boolean>
+  wheel: false,
+  // <boolean>
+  singleCellView: true,
+  // <boolean>
+  gridView: false // <boolean>
 
 };
 exports.main = main;
@@ -540,10 +551,8 @@ var warmingNavigator = {
   // 'first', 'last', 'random', <number>
   initialRegion: 'random',
   // 'first', 'last', 'random', <number>
-  palette: 'edHawkins',
-  // see ../palettes.js
-  singleCellView: true,
-  gridView: false
+  palette: 'edHawkins' // see ../palettes.js
+
 };
 exports.warmingNavigator = warmingNavigator;
 var keyboard = {
@@ -727,7 +736,9 @@ var main = {
   dataset: datasetParser(),
   sort: booleanParser(),
   keyboard: booleanParser(),
-  wheel: booleanParser()
+  wheel: booleanParser(),
+  singleCellView: booleanParser(),
+  gridView: booleanParser()
 };
 exports.main = main;
 var warmingNavigator = {
@@ -737,9 +748,7 @@ var warmingNavigator = {
   invalidYear: stringsParser('show', 'show-valid', 'adjust-to-valid'),
   initialYear: intOrStringsParser('first', 'last', 'random'),
   initialRegion: intOrStringsParser('first', 'last', 'random'),
-  palette: paletteParser(),
-  singleCellView: booleanParser(),
-  gridView: booleanParser()
+  palette: paletteParser()
 };
 exports.warmingNavigator = warmingNavigator;
 var keyboard = {
@@ -2216,10 +2225,22 @@ function processPalette(options) {
   };
 }
 
-function processElement(options) {
-  var element = options.element instanceof Element ? options.element : document.querySelector(options.element);
-  assert(element !== null, 'element', options.element, ['<Element>', '<query selector string>']);
+function parseAsElement(key, value, isOptional) {
+  if (isOptional && typeof value === 'undefined') {
+    return undefined;
+  }
+
+  var element = value instanceof Element ? value : document.querySelector(value);
+  assert(element !== null, key, value, ['<Element>', '<query selector string>']);
   return element;
+}
+
+function processElement(options) {
+  return parseAsElement('element', options.element, true);
+}
+
+function processGridViewElement(options) {
+  return parseAsElement('gridViewElement', options.gridViewElement, true);
 }
 
 function processRYSelector(options) {
@@ -2268,11 +2289,10 @@ function processOptions(data, optionsNoDefaults) {
   var element = processElement(options);
   var RYSelectorClass = processRYSelector(options);
   var inputs = processInputs(options);
+  var gridViewElement = processGridViewElement(options);
 
   var _processOther = processOther(data, options),
-      sort = _processOther.sort,
-      singleCellView = _processOther.singleCellView,
-      gridView = _processOther.gridView;
+      sort = _processOther.sort;
 
   return {
     initialRegion: initialRegion,
@@ -2284,9 +2304,8 @@ function processOptions(data, optionsNoDefaults) {
     element: element,
     RYSelectorClass: RYSelectorClass,
     inputs: inputs,
-    sort: sort,
-    singleCellView: singleCellView,
-    gridView: gridView
+    gridViewElement: gridViewElement,
+    sort: sort
   };
 }
 
@@ -2536,9 +2555,8 @@ var WarmingNavigator = function WarmingNavigator(data, options) {
       element = _this$processedOption.element,
       RYSelectorClass = _this$processedOption.RYSelectorClass,
       inputs = _this$processedOption.inputs,
-      sort = _this$processedOption.sort,
-      useSingleCellView = _this$processedOption.singleCellView,
-      useGridView = _this$processedOption.gridView;
+      gridViewElement = _this$processedOption.gridViewElement,
+      sort = _this$processedOption.sort;
   var model = new _model["default"](data, minYear, maxYear, language, sort);
   var rySelector = new RYSelectorClass({
     numRegions: model.getNumRegions(),
@@ -2551,13 +2569,13 @@ var WarmingNavigator = function WarmingNavigator(data, options) {
   });
   var views = [];
 
-  if (useSingleCellView) {
+  if (typeof element !== 'undefined') {
     var singleRecordView = new _singleRecordView["default"](element, model, rySelector, language, palette);
     views.push(singleRecordView);
   }
 
-  if (useGridView) {
-    var gridView = new _gridView["default"](document.querySelector('#anomaly-table'), model, rySelector, language, palette);
+  if (typeof gridViewElement !== 'undefined') {
+    var gridView = new _gridView["default"](gridViewElement, model, rySelector, language, palette);
     views.push(gridView);
   }
 

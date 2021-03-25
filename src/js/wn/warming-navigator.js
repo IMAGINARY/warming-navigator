@@ -20,10 +20,9 @@ export default class WarmingNavigator {
       element,
       RYSelectorClass,
       inputs,
+      gridViewElement,
 
       sort,
-      singleCellView: useSingleCellView,
-      gridView: useGridView,
     } = this.processedOptions;
 
     const model = new Model(data, minYear, maxYear, language, sort);
@@ -37,7 +36,7 @@ export default class WarmingNavigator {
     });
 
     const views = [];
-    if (useSingleCellView) {
+    if (typeof element !== 'undefined') {
       const singleRecordView = new SingleRecordView(
         element,
         model,
@@ -48,9 +47,9 @@ export default class WarmingNavigator {
       views.push(singleRecordView);
     }
 
-    if (useGridView) {
+    if (typeof gridViewElement !== 'undefined') {
       const gridView = new GridView(
-        document.querySelector('#anomaly-table'),
+        gridViewElement,
         model,
         rySelector,
         language,

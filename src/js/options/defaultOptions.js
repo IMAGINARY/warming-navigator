@@ -3,6 +3,8 @@ export const main = {
   sort: true, // <boolean>
   keyboard: true, // <boolean>
   wheel: false, // <boolean>
+  singleCellView: true, // <boolean>
+  gridView: false, // <boolean>
 };
 
 export const warmingNavigator = {
@@ -13,8 +15,6 @@ export const warmingNavigator = {
   initialYear: 'random', // 'first', 'last', 'random', <number>
   initialRegion: 'random', // 'first', 'last', 'random', <number>
   palette: 'edHawkins', // see ../palettes.js
-  singleCellView: true,
-  gridView: false,
 };
 
 export const keyboard = {

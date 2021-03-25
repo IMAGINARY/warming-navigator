@@ -80,6 +80,8 @@ export const main = {
   sort: booleanParser(),
   keyboard: booleanParser(),
   wheel: booleanParser(),
+  singleCellView: booleanParser(),
+  gridView: booleanParser(),
 };
 
 export const warmingNavigator = {
@@ -90,8 +92,6 @@ export const warmingNavigator = {
   initialYear: intOrStringsParser('first', 'last', 'random'),
   initialRegion: intOrStringsParser('first', 'last', 'random'),
   palette: paletteParser(),
-  singleCellView: booleanParser(),
-  gridView: booleanParser(),
 };
 
 export const keyboard = {

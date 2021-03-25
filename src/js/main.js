@@ -18,9 +18,15 @@ async function main() {
   const { dataset } = options;
   const data = await fetchData(dataset);
 
-  const element = document.querySelector('#warming-navigator');
-  const wn = new WarmingNavigator(data, { ...options, element });
+  const wnOptions = { ...options };
+  if (options.singleCellView) {
+    wnOptions.element = document.querySelector('#warming-navigator');
+  }
+  if (options.gridView) {
+    wnOptions.gridViewElement = document.querySelector('#anomaly-table');
+  }
 
+  const wn = new WarmingNavigator(data, wnOptions);
   global.warmingNavigator = wn;
 }
 
