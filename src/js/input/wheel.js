@@ -14,12 +14,12 @@ export default class Wheel extends Input {
   constructor(options) {
     super();
 
-    const { delta, invertX, invertY, regionHorYearVert } = {
+    const { wheelDelta, wheelInvertX, wheelInvertY, wheelRegionHorYearVert } = {
       ...defaultOptions,
       ...options,
     };
 
-    this._stepDelta = delta;
+    this._stepDelta = wheelDelta;
     this._deltaX = 0;
     this._deltaY = 0;
 
@@ -34,15 +34,15 @@ export default class Wheel extends Input {
       },
     };
 
-    if (!regionHorYearVert) {
+    if (!wheelRegionHorYearVert) {
       swapProps(this._stepFuncs, 'x', 'y');
     }
 
-    if (invertX) {
+    if (wheelInvertX) {
       swapProps(this._stepFuncs.x, 'dec', 'inc');
     }
 
-    if (invertY) {
+    if (wheelInvertY) {
       swapProps(this._stepFuncs.y, 'dec', 'inc');
     }
 

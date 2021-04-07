@@ -25,8 +25,8 @@ export const keyboard = {
 };
 
 export const wheel = {
-  delta: 53,
-  invertX: false,
-  invertY: false,
-  regionHorYearVert: true,
+  wheelDelta: 53,
+  wheelInvertX: false,
+  wheelInvertY: false,
+  wheelRegionHorYearVert: true,
 };

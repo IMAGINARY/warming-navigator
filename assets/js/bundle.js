@@ -311,12 +311,12 @@ var Wheel = /*#__PURE__*/function (_Input) {
     _this = _super.call(this);
 
     var _defaultOptions$optio = _objectSpread(_objectSpread({}, _defaultOptions.wheel), options),
-        delta = _defaultOptions$optio.delta,
-        invertX = _defaultOptions$optio.invertX,
-        invertY = _defaultOptions$optio.invertY,
-        regionHorYearVert = _defaultOptions$optio.regionHorYearVert;
+        wheelDelta = _defaultOptions$optio.wheelDelta,
+        wheelInvertX = _defaultOptions$optio.wheelInvertX,
+        wheelInvertY = _defaultOptions$optio.wheelInvertY,
+        wheelRegionHorYearVert = _defaultOptions$optio.wheelRegionHorYearVert;
 
-    _this._stepDelta = delta;
+    _this._stepDelta = wheelDelta;
     _this._deltaX = 0;
     _this._deltaY = 0;
     _this._stepFuncs = {
@@ -330,15 +330,15 @@ var Wheel = /*#__PURE__*/function (_Input) {
       }
     };
 
-    if (!regionHorYearVert) {
+    if (!wheelRegionHorYearVert) {
       swapProps(_this._stepFuncs, 'x', 'y');
     }
 
-    if (invertX) {
+    if (wheelInvertX) {
       swapProps(_this._stepFuncs.x, 'dec', 'inc');
     }
 
-    if (invertY) {
+    if (wheelInvertY) {
       swapProps(_this._stepFuncs.y, 'dec', 'inc');
     }
 
@@ -563,10 +563,10 @@ var keyboard = {
 };
 exports.keyboard = keyboard;
 var wheel = {
-  delta: 53,
-  invertX: false,
-  invertY: false,
-  regionHorYearVert: true
+  wheelDelta: 53,
+  wheelInvertX: false,
+  wheelInvertY: false,
+  wheelRegionHorYearVert: true
 };
 exports.wheel = wheel;
 
@@ -759,10 +759,10 @@ var keyboard = {
 };
 exports.keyboard = keyboard;
 var wheel = {
-  delta: intParser(),
-  invertX: booleanParser(),
-  invertY: booleanParser(),
-  regionHorYearVert: booleanParser()
+  wheelDelta: intParser(),
+  wheelInvertX: booleanParser(),
+  wheelInvertY: booleanParser(),
+  wheelRegionHorYearVert: booleanParser()
 };
 exports.wheel = wheel;
 

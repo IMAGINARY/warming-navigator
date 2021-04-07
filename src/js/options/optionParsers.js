@@ -102,8 +102,8 @@ export const keyboard = {
 };
 
 export const wheel = {
-  delta: intParser(),
-  invertX: booleanParser(),
-  invertY: booleanParser(),
-  regionHorYearVert: booleanParser(),
+  wheelDelta: intParser(),
+  wheelInvertX: booleanParser(),
+  wheelInvertY: booleanParser(),
+  wheelRegionHorYearVert: booleanParser(),
 };
