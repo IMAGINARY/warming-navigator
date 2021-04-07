@@ -8,7 +8,7 @@ export const main = {
 };
 
 export const warmingNavigator = {
-  lang: 'en',
+  lang: 'en', // <string>
   minYear: 'valid', // 'data', 'valid', <number>
   maxYear: 'data', // 'data', 'valid', <number>
   invalidYear: 'show', // 'show', 'show-valid', 'adjust-to-valid'
@@ -18,15 +18,15 @@ export const warmingNavigator = {
 };
 
 export const keyboard = {
-  prevRegionKey: 'ArrowLeft',
-  nextRegionKey: 'ArrowRight',
-  prevYearKey: 'ArrowDown',
-  nextYearKey: 'ArrowUp',
+  prevRegionKey: 'ArrowLeft', // <string>
+  nextRegionKey: 'ArrowRight', // <string>
+  prevYearKey: 'ArrowDown', // <string>
+  nextYearKey: 'ArrowUp', // <string>
 };
 
 export const wheel = {
-  wheelDelta: 53,
-  wheelInvertX: false,
-  wheelInvertY: false,
-  wheelRegionHorYearVert: true,
+  wheelDelta: 53, // <number>
+  wheelInvertX: false, // <boolean>
+  wheelInvertY: false, // <boolean>
+  wheelRegionHorYearVert: true, // <boolean>
 };

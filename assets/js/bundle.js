@@ -541,6 +541,7 @@ var main = {
 exports.main = main;
 var warmingNavigator = {
   lang: 'en',
+  // <string>
   minYear: 'valid',
   // 'data', 'valid', <number>
   maxYear: 'data',
@@ -557,16 +558,24 @@ var warmingNavigator = {
 exports.warmingNavigator = warmingNavigator;
 var keyboard = {
   prevRegionKey: 'ArrowLeft',
+  // <string>
   nextRegionKey: 'ArrowRight',
+  // <string>
   prevYearKey: 'ArrowDown',
-  nextYearKey: 'ArrowUp'
+  // <string>
+  nextYearKey: 'ArrowUp' // <string>
+
 };
 exports.keyboard = keyboard;
 var wheel = {
   wheelDelta: 53,
+  // <number>
   wheelInvertX: false,
+  // <boolean>
   wheelInvertY: false,
-  wheelRegionHorYearVert: true
+  // <boolean>
+  wheelRegionHorYearVert: true // <boolean>
+
 };
 exports.wheel = wheel;
 
