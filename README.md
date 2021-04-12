@@ -48,6 +48,10 @@ valid:
 - `wheelRegionHorYearVert` (`<boolean>`, default: `true`): Whether to use the horizontal wheel direction for the region
   and the vertical wheel direction for the year or vice versa.
 
+## Station setup
+
+For setting up this exhibit on a Raspberry Pi 3B+, please follow the [setup guide](station/README.md).
+
 ## Compilation
 
 This web application is built using several compilable languages:
