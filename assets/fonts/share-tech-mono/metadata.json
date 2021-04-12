@@ -1,13 +1,13 @@
 {
-  "fontId": "vt323",
-  "fontName": "VT323",
-  "subsets": ["latin", "latin-ext", "vietnamese"],
+  "fontId": "share-tech-mono",
+  "fontName": "Share Tech Mono",
+  "subsets": ["latin"],
   "weights": ["400"],
   "styles": ["normal"],
   "defSubset": "latin",
   "variable": false,
   "lastModified": "2020-09-02",
-  "version": "v12",
+  "version": "v10",
   "source": "https://fonts.google.com/",
   "license": "https://fonts.google.com/attribution",
   "type": "google"

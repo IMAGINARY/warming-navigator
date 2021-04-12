@@ -44,8 +44,8 @@ const paths = {
     dest: `${OUTPUT_DIR}/assets/css`,
   },
   fonts: {
-    src: ['./node_modules/@fontsource/vt323/**/*'],
-    dest: `${OUTPUT_DIR}/assets/fonts/vt323`,
+    src: ['./node_modules/@fontsource/share-tech-mono/**/*'],
+    dest: `${OUTPUT_DIR}/assets/fonts/share-tech-mono`,
   },
 };
 

@@ -1,16 +1,16 @@
 {
-  "_from": "@fontsource/vt323",
-  "_id": "@fontsource/vt323@4.2.2",
+  "_from": "@fontsource/share-tech-mono",
+  "_id": "@fontsource/share-tech-mono@4.2.2",
   "_inBundle": false,
-  "_integrity": "sha512-RuMmQuAQ0PQq9aH4mjRHQLu9RdH4boVxsDyP+PQjgJS7qIcIYNCq4vcxZ8y3MXhVrG9SFgQCODedco9Z2TaUHg==",
-  "_location": "/@fontsource/vt323",
+  "_integrity": "sha512-VsQtfDAi6Xbx+0u7JG4rFQpwPfWpe+wz1MOVYlDcurE6WTq3rWN9zb0bHUxWjFxCLBxdQtBg2GxeBhfm/89D6Q==",
+  "_location": "/@fontsource/share-tech-mono",
   "_phantomChildren": {},
   "_requested": {
     "type": "tag",
     "registry": true,
-    "raw": "@fontsource/vt323",
-    "name": "@fontsource/vt323",
-    "escapedName": "@fontsource%2fvt323",
+    "raw": "@fontsource/share-tech-mono",
+    "name": "@fontsource/share-tech-mono",
+    "escapedName": "@fontsource%2fshare-tech-mono",
     "scope": "@fontsource",
     "rawSpec": "",
     "saveSpec": null,
@@ -20,9 +20,9 @@
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/@fontsource/vt323/-/vt323-4.2.2.tgz",
-  "_shasum": "296af4353263e5342f6133c0189ad82d51f8edc9",
-  "_spec": "@fontsource/vt323",
+  "_resolved": "https://registry.npmjs.org/@fontsource/share-tech-mono/-/share-tech-mono-4.2.2.tgz",
+  "_shasum": "cc911600b980bbbb2cec5d4ed47383e98c0d65b6",
+  "_spec": "@fontsource/share-tech-mono",
   "_where": "/Users/stussak/Desktop/IMAGINARY/10MM/warming-navigator/src",
   "author": {
     "name": "Lotus",
@@ -33,27 +33,27 @@
   },
   "bundleDependencies": false,
   "deprecated": false,
-  "description": "Self-host the VT323 font in a neatly bundled NPM package.",
+  "description": "Self-host the Share Tech Mono font in a neatly bundled NPM package.",
   "gitHead": "6f1ab8fd3e6c93d96a0fcd131f12409d142d9a9e",
-  "homepage": "https://github.com/fontsource/fontsource/tree/master/packages/vt323#readme",
+  "homepage": "https://github.com/fontsource/fontsource/tree/master/packages/share-tech-mono#readme",
   "keywords": [
     "fontsource",
     "font",
     "font family",
     "google fonts",
-    "VT323",
-    "vt323"
+    "Share Tech Mono",
+    "share-tech-mono"
   ],
   "license": "MIT",
   "main": "index.css",
-  "name": "@fontsource/vt323",
+  "name": "@fontsource/share-tech-mono",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fontsource/fontsource.git",
-    "directory": "packages/vt323"
+    "directory": "packages/share-tech-mono"
   },
   "version": "4.2.2"
 }

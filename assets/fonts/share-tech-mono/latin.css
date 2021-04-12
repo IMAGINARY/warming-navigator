@@ -1,0 +1,11 @@
+/* share-tech-mono-latin-400-normal*/
+@font-face {
+  font-family: 'Share Tech Mono';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src:
+    local('Share Tech Mono'),
+    local('ShareTechMono-Regular'), url('./files/share-tech-mono-latin-400-normal.woff2') format('woff2'), url('./files/share-tech-mono-latin-400-normal.woff') format('woff');
+  
+}

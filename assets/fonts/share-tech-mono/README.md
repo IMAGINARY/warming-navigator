@@ -1,47 +1,47 @@
-# Fontsource VT323
+# Fontsource Share Tech Mono
 
-[![npm (scoped)](https://img.shields.io/npm/v/@fontsource/vt323?color=brightgreen)](https://www.npmjs.com/package/@fontsource/vt323) [![Generic badge](https://img.shields.io/badge/fontsource-passing-brightgreen)](https://github.com/fontsource/fontsource) [![Monthly downloads](https://badgen.net/npm/dm/@fontsource/vt323)](https://github.com/fontsource/fontsource) [![Total downloads](https://badgen.net/npm/dt/@fontsource/vt323)](https://github.com/fontsource/fontsource) [![GitHub stars](https://img.shields.io/github/stars/fontsource/fontsource.svg?style=social&label=Star)](https://github.com/fontsource/fontsource/stargazers)
+[![npm (scoped)](https://img.shields.io/npm/v/@fontsource/share-tech-mono?color=brightgreen)](https://www.npmjs.com/package/@fontsource/share-tech-mono) [![Generic badge](https://img.shields.io/badge/fontsource-passing-brightgreen)](https://github.com/fontsource/fontsource) [![Monthly downloads](https://badgen.net/npm/dm/@fontsource/share-tech-mono)](https://github.com/fontsource/fontsource) [![Total downloads](https://badgen.net/npm/dt/@fontsource/share-tech-mono)](https://github.com/fontsource/fontsource) [![GitHub stars](https://img.shields.io/github/stars/fontsource/fontsource.svg?style=social&label=Star)](https://github.com/fontsource/fontsource/stargazers)
 
-The CSS and web font files to easily self-host the “VT323” font. Please visit the main [Fontsource monorepo](https://github.com/fontsource/fontsource) to view more details on this package.
+The CSS and web font files to easily self-host the “Share Tech Mono” font. Please visit the main [Fontsource monorepo](https://github.com/fontsource/fontsource) to view more details on this package.
 
 ## Installation
 
 Fontsource assumes you are using a bundler, such as Webpack, to load in CSS. Solutions like [CRA](https://create-react-app.dev/), [Gatsby](https://www.gatsbyjs.org/) and [Next.js](https://nextjs.org/) are prebuilt examples that are compatible.
 
 ```javascript
-yarn add @fontsource/vt323 // npm install @fontsource/vt323
+yarn add @fontsource/share-tech-mono // npm install @fontsource/share-tech-mono
 ```
 
 Then within your app entry file or site component, import it in. For example in Gatsby, you could choose to import it into a layout template (`layout.js`), page component (`index.js`), or `gatsby-browser.js`.
 
 ```javascript
-import "@fontsource/vt323" // Defaults to weight 400.
+import "@fontsource/share-tech-mono" // Defaults to weight 400.
 ```
 
 Fontsource allows you to select weights and even individual styles, allowing you to cut down on payload sizes to the last byte! Utilizing the CSS unicode-range selector, all language subsets are accounted for.
 
 ```javascript
-import "@fontsource/vt323/500.css" // Weight 500.
-import "@fontsource/vt323/900-italic.css" // Italic variant.
+import "@fontsource/share-tech-mono/500.css" // Weight 500.
+import "@fontsource/share-tech-mono/900-italic.css" // Italic variant.
 ```
 
 Alternatively, the same solutions could be imported via SCSS!
 
 ```scss
-@import "~@fontsource/vt323/index.css"; // Weight 400.
-@import "~@fontsource/vt323/300-italic.css";
+@import "~@fontsource/share-tech-mono/index.css"; // Weight 400.
+@import "~@fontsource/share-tech-mono/300-italic.css";
 ```
 
 For more advanced setups, you can use our highly customisable Sass mixins that can modify many of the existing @font-face variables.
 
 ```scss
-@import "~@fontsource/vt323/scss/mixins";
+@import "~@fontsource/share-tech-mono/scss/mixins";
 
 // Uses a unicode-range map to automatically generate multiple @font-face rules.
 @include fontFace(
   $weight: 500,
   $display: fallback,
-  $fontDir: "~@fontsource/vt323/files"
+  $fontDir: "~@fontsource/share-tech-mono/files"
 );
 
 // Fully customisable single @font-face mixin.
@@ -57,7 +57,7 @@ For more advanced setups, you can use our highly customisable Sass mixins that c
 We also have default variables that you can use!
 
 ```scss
-@import "~@fontsource/vt323/scss/mixins";
+@import "~@fontsource/share-tech-mono/scss/mixins";
 
 $style: italic;
 
@@ -67,7 +67,7 @@ $style: italic;
 // Applies italic to both @includes.
 ```
 
-You can see all of the existing inputtable mixin variables [here](https://github.com/fontsource/fontsource/tree/master/packages/vt323/scss/mixins.scss).
+You can see all of the existing inputtable mixin variables [here](https://github.com/fontsource/fontsource/tree/master/packages/share-tech-mono/scss/mixins.scss).
 
 _These examples may not reflect actual compatibility. Please refer below._
 
@@ -80,7 +80,7 @@ Finally, you can reference the font name in a CSS stylesheet, CSS Module, or CSS
 
 ```css
 body {
-  font-family: "VT323";
+  font-family: "Share Tech Mono";
 }
 ```
 
@@ -89,12 +89,12 @@ body {
 In the rare case you need to individually select a language subset and not utilize the CSS unicode-range selector, you may specify the import as follows. This is especially not recommended for languages, such as Japanese, with a large amount of characters.
 
 ```javascript
-import "@fontsource/vt323/latin-ext.css" // All weights with normal style included.
-import "@fontsource/vt323/cyrillic-ext-500.css" // Weight 500 with normal style.
-import "@fontsource/vt323/greek-900-italic.css" // Italic variant.
+import "@fontsource/share-tech-mono/latin-ext.css" // All weights with normal style included.
+import "@fontsource/share-tech-mono/cyrillic-ext-500.css" // Weight 500 with normal style.
+import "@fontsource/share-tech-mono/greek-900-italic.css" // Italic variant.
 ```
 
-- Supported subsets: `[latin,latin-ext,vietnamese]`
+- Supported subsets: `[latin]`
 
 ## Licensing
 
@@ -105,6 +105,6 @@ Most of the fonts in the collection use the SIL Open Font License, v1.1. Some fo
 
 ## Other Notes
 
-Font version (provided by source): `v12`.
+Font version (provided by source): `v10`.
 
 Feel free to star and contribute new ideas to this repository that aim to improve the performance of font loading, as well as expanding the existing library we already have. Any suggestions or ideas can be voiced via an [issue](https://github.com/fontsource/fontsource/issues).

@@ -1,4 +1,4 @@
-@import "../fonts/vt323/index.css";
+@import "../fonts/share-tech-mono/index.css";
 
 body,
 html {
@@ -12,9 +12,7 @@ html {
 
 body {
   background-color: lightgray;
-  /* font-family: 'Jura', sans-serif; */
-  font-family: "VT323", monospace;
-  /* font-family: 'Space Mono', monospace; */
+  font-family: "Share Tech Mono", monospace;
 }
 
 .warming-navigator {
