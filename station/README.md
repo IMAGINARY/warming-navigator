@@ -30,7 +30,12 @@ hdmi_group=2
 hdmi_mode=87
 hdmi_cvt=800 480 60
 dtoverlay=vc4-kms-v3d
+bootcode_delay=2
+boot_delay=2
 ```
+
+You might need to increase the `bootcode_delay` and `boot_delay` values if the display is powered on simultaneously with
+the Raspberry Pi (even though the supplied values worked reliably during our tests).
 
 Optionally, add the configuration for controlling the exhibit
 via [rotary knobs](#emulating-mouse-wheel-navigation-via-gpios).
