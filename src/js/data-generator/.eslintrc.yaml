@@ -1,5 +1,0 @@
----
-env:
-  browser: node
-rules:
-  no-console: off
