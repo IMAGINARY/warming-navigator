@@ -27,7 +27,7 @@ async function main() {
   }
 
   const wn = new WarmingNavigator(data, wnOptions);
-  global.warmingNavigator = wn;
+  globalThis.warmingNavigator = wn;
 }
 
 ready(main);

@@ -1,4 +1,5 @@
-@import url(../fonts/share-tech-mono/index.css);
+@import "@fontsource/share-tech-mono/400.css";
+
 body,
 html {
   width: 100%;
@@ -6,11 +7,13 @@ html {
   display: grid;
   margin: 0;
   padding: 0;
-  overflow: hidden; }
+  overflow: hidden;
+}
 
 body {
   background-color: lightgray;
-  font-family: "Share Tech Mono", monospace; }
+  font-family: "Share Tech Mono", monospace;
+}
 
 .warming-navigator {
   position: relative;
@@ -18,27 +21,32 @@ body {
   height: 480px;
   outline: 2px solid gray;
   margin: auto;
-  cursor: none; }
+  cursor: none;
+}
 
 .warming-navigator .region,
 .warming-navigator .year {
   position: absolute;
   bottom: -5pt;
   margin: 10pt;
-  font-size: 300%; }
+  font-size: 300%;
+}
 
 .warming-navigator .region {
-  left: 0px; }
+  left: 0px;
+}
 
 .warming-navigator .year {
-  right: 0px; }
+  right: 0px;
+}
 
 .warming-navigator .anomaly {
   position: absolute;
   bottom: 38%;
   width: 100%;
   text-align: center;
-  font-size: 1000%; }
+  font-size: 1000%;
+}
 
 .warming-navigator .uncertainty {
   position: absolute;
@@ -46,25 +54,39 @@ body {
   width: 100%;
   text-align: center;
   font-size: 300%;
-  opacity: 30%; }
+  opacity: 30%;
+}
 
 .anomaly-table {
   position: relative;
   width: 100%;
   overflow: scroll;
   font-size: xx-small;
-  margin-top: 1em; }
-  .anomaly-table:empty {
-    display: none; }
-  .anomaly-table table {
-    margin: auto; }
-    .anomaly-table table td {
-      text-align: center; }
-  .anomaly-table .the-year {
-    outline: yellow 2.5px solid; }
-  .anomaly-table .the-year-to-show {
-    outline: deeppink 2.5px solid; }
-  .anomaly-table .the-year.the-year-to-show {
-    outline: lightgreen 2.5px solid; }
+  margin-top: 1em;
 
-/*# sourceMappingURL=default.css.map */
+  &:empty {
+    display: none;
+  }
+
+  table {
+    margin: auto;
+
+    td {
+      text-align: center;
+    }
+  }
+
+  --outline-width: 2.5px;
+
+  .the-year {
+    outline: yellow var(--outline-width) solid;
+  }
+
+  .the-year-to-show {
+    outline: deeppink var(--outline-width) solid;
+  }
+
+  .the-year.the-year-to-show {
+    outline: lightgreen var(--outline-width) solid;
+  }
+}
