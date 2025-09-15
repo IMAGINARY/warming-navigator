@@ -5,7 +5,7 @@ import { getOptions, getDefaultOptions } from './options/options';
 import WarmingNavigator from './wn/warming-navigator';
 
 async function fetchData(dataset) {
-  const response = await fetch(`./assets/data/${dataset}.json`);
+  const response = await fetch(`./data/${dataset}.json`);
   const data = await response.json();
   return data;
 }
