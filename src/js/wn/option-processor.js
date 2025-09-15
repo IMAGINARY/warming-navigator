@@ -1,4 +1,4 @@
-import random from 'lodash.random';
+import { random } from 'es-toolkit/compat';
 import Color from 'color';
 
 import { warmingNavigator as defaultOptions } from '../options/defaultOptions';

@@ -1,5 +1,4 @@
-import pickBy from 'lodash.pickby';
-import mapValues from 'lodash.mapvalues';
+import { mapValues, pickBy } from 'es-toolkit';
 
 import * as defaultOptions from './defaultOptions';
 import * as optionParsers from './optionParsers';
