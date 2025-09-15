@@ -19,7 +19,7 @@ valid:
 - `minYear` (`'data'`, `'valid'`, `<number>`, default: `'valid'`): The first year to show in the views. If `'data'`, the
   first year of the dataset is used. If `'valid'`, the first year considered valid in the dataset is used. If `<number>`
   , use that year.
-- `maxYear` (`'data'`, `'valid'`, `<number>`, default: `'data'`):  The last year to show in the views. If `'data'`, the
+- `maxYear` (`'data'`, `'valid'`, `<number>`, default: `'data'`): The last year to show in the views. If `'data'`, the
   last year of the dataset is used. If `'valid'`, the last year considered valid in the dataset is used. If `<number>`,
   use that year.
 - `invalidYear` (`'show'`, `'show-valid'`, `'adjust-to-valid'`, default: `'show'`): How to deal with invalid/missing
@@ -135,23 +135,23 @@ as follows:
 
 ```json5
 {
-  "regions": [
+  regions: [
     {
-      "title": {
-        "lngA": "Region 0 title in language A",
-        "lngB": "Region 0 title in language B"
+      title: {
+        lngA: 'Region 0 title in language A',
+        lngB: 'Region 0 title in language B',
       },
-      "url": "http://..."
+      url: 'http://...',
     },
     {
-      "title": {
-        "lngA": "Region 1 title in language A",
-        "lngB": "Region 1 title in language B"
+      title: {
+        lngA: 'Region 1 title in language A',
+        lngB: 'Region 1 title in language B',
       },
-      "url": "http://..."
+      url: 'http://...',
     },
     // ... more regions ...
-  ]
+  ],
 }
 ```
 
@@ -183,4 +183,3 @@ Licensed under the Apache License, Version 2.0 (see `LICENSE`).
 The datasets are generated from the [Creative Commons BY-4.0](https://creativecommons.org/licenses/by/4.0/) licensed
 temperature anomaly data available at [Berkeley Earth](http://berkeleyearth.lbl.gov). For a precise list of raw data
 files this project builds upon, see the `.json` files in `/src/json`.
-

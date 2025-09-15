@@ -10,7 +10,7 @@ export default class ShowValidRYSelector extends ValidatingRYSelector {
       baseRegion,
       regionOffset,
       baseYear,
-      yearOffset
+      yearOffset,
     );
 
     return { region, year, yearToShow: validYear, validYear };

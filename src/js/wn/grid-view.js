@@ -39,7 +39,7 @@ export default class GridView extends View {
     const title = model.getTitle(region);
     const { anomaly, relativeAnomaly, uncertainty } = model.getRecord(
       region,
-      year
+      year,
     );
     const color = this.getColorizer().hex(relativeAnomaly);
     const formattedAnomaly = this.formatAnomaly(anomaly);

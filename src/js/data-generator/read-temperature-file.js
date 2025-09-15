@@ -76,9 +76,8 @@ async function readTemperatureFile(pth) {
     typeof data['Estimated Jan 1951-Dec 1980 absolute temperature (C)'] !==
     'undefined'
   ) {
-    const meanVal = data[
-      'Estimated Jan 1951-Dec 1980 absolute temperature (C)'
-    ].split('+/-');
+    const meanVal =
+      data['Estimated Jan 1951-Dec 1980 absolute temperature (C)'].split('+/-');
     data.baseline_value = Number(meanVal[0]);
     data.baseline_unc = Number(meanVal[1]);
   }

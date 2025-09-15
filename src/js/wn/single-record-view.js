@@ -19,7 +19,7 @@ export default class SingleRecordView extends View {
     const title = model.getTitle(region);
     const { anomaly, relativeAnomaly, uncertainty } = model.getRecord(
       region,
-      year
+      year,
     );
     const color = this.getColorizer().hex(relativeAnomaly);
     this.displayRecord(title, year, anomaly, uncertainty, color);

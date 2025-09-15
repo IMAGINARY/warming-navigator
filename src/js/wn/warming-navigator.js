@@ -42,7 +42,7 @@ export default class WarmingNavigator {
         model,
         rySelector,
         language,
-        palette
+        palette,
       );
       views.push(singleRecordView);
     }
@@ -53,7 +53,7 @@ export default class WarmingNavigator {
         model,
         rySelector,
         language,
-        palette
+        palette,
       );
       views.push(gridView);
     }

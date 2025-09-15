@@ -32,7 +32,7 @@ export default class View {
       };
       const formatter = new Intl.NumberFormat(
         this.getLanguage(),
-        formatterOptions
+        formatterOptions,
       );
       return `${anomaly < 0 ? '' : '+'}${formatter.format(anomaly)}°C`;
     }
@@ -47,7 +47,7 @@ export default class View {
       };
       const formatter = new Intl.NumberFormat(
         this.getLanguage(),
-        formatterOptions
+        formatterOptions,
       );
       return `±${formatter.format(uncertainty)}°C`;
     }
