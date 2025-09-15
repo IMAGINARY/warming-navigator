@@ -14,7 +14,7 @@
     "d3-fetch": "^2.0.0",
     "d3-time-format": "^3.0.0",
     "node-fetch": "^2.6.1",
-    "prettier": "^2.2.1",
+    "prettier": "^3.6.2",
     "vite": "^7.1.5"
   },
   "dependencies": {
