@@ -13,9 +13,8 @@ Full part list:
 - Rotary encoders (KY-040)
 - Cables and adapters (TBD)
 
-[Raspberry Pi 3B+]: https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/
-
-[Waveshare 4.3" 800x480 HDMI display]: https://www.waveshare.com/product/raspberry-pi/displays/4.3inch-hdmi-lcd-b.htm
+[raspberry pi 3b+]: https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/
+[waveshare 4.3" 800x480 hdmi display]: https://www.waveshare.com/product/raspberry-pi/displays/4.3inch-hdmi-lcd-b.htm
 
 ## System configuration
 
@@ -45,9 +44,8 @@ If you want to SSH into the system, add an empty file called `ssh` to the `boot`
 
 Then, insert the SD card into the Raspberry Pi and boot.
 
-[Raspberry Pi OS Lite]: https://www.raspberrypi.org/software/operating-systems/#raspberry-pi-os-32-bit
-
-[setup the WiFi]: https://www.raspberrypi.org/documentation/configuration/wireless/headless.md
+[raspberry pi os lite]: https://www.raspberrypi.org/software/operating-systems/#raspberry-pi-os-32-bit
+[setup the wifi]: https://www.raspberrypi.org/documentation/configuration/wireless/headless.md
 
 ### Package installation
 
@@ -122,12 +120,8 @@ Adjust the values of `pin_a` and `pin_b` to your needs (with respect to the [BCM
 rotary encoder used, you might also need to set appropriate values for `steps-per-period` and `encoding` (see
 the [device tree binding]).
 
-[Linux' `rotary-encoder` driver]: https://www.kernel.org/doc/html/latest/input/devices/rotary-encoder.html
-
+[linux' `rotary-encoder` driver]: https://www.kernel.org/doc/html/latest/input/devices/rotary-encoder.html
 [device tree binding]: https://www.kernel.org/doc/Documentation/devicetree/bindings/input/rotary-encoder.txt
-
-[REL_HWHEEL]: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/include/uapi/linux/input-event-codes.h?h=linux-5.9.y#n790
-
-[REL_WHEEL]: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/include/uapi/linux/input-event-codes.h?h=linux-5.9.y#n792
-
-[BCM GPIO pin numbering]: https://pinout.xyz
+[rel_hwheel]: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/include/uapi/linux/input-event-codes.h?h=linux-5.9.y#n790
+[rel_wheel]: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/tree/include/uapi/linux/input-event-codes.h?h=linux-5.9.y#n792
+[bcm gpio pin numbering]: https://pinout.xyz

@@ -1,4 +1,4 @@
-import random from 'lodash.random';
+import { random } from 'es-toolkit/compat';
 import Color from 'color';
 
 import { warmingNavigator as defaultOptions } from '../options/defaultOptions';
@@ -66,7 +66,7 @@ function processLanguage(data, options) {
     data.languages.includes(options.lang),
     'lang',
     options.lang,
-    data.languages
+    data.languages,
   );
   return options.lang;
 }
@@ -115,7 +115,7 @@ function processRYSelector(options) {
     typeof RYSelectorClass !== 'undefined',
     'invalidYear',
     options.invalidYear,
-    Object.keys(rySelectorClasses)
+    Object.keys(rySelectorClasses),
   );
   return RYSelectorClass;
 }

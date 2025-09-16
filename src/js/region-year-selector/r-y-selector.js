@@ -35,7 +35,7 @@ export default class RYSelector extends EventEmitter {
       baseRegion,
       regionOffset,
       baseYear,
-      yearOffset
+      yearOffset,
     );
 
     const regionChanged = region !== this.region;

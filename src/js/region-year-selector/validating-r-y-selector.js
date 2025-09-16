@@ -50,7 +50,7 @@ export default class ValidatingRYSelector extends RYSelector {
       baseRegion,
       regionOffset,
       baseYear,
-      yearOffset
+      yearOffset,
     );
 
     let validYear;

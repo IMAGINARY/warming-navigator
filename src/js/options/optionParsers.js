@@ -36,9 +36,11 @@ function stringsParser(...strings) {
 function parseIntOrStrings(s, ...strings) {
   try {
     return parseInt(s);
+    /* eslint-disable-next-line no-unused-vars */
   } catch (e1) {
     try {
       return parseStrings(s, ...strings);
+      /* eslint-disable-next-line no-unused-vars */
     } catch (e2) {
       throw TypeError(`Expected <integer> or ${strings}`);
     }

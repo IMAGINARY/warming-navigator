@@ -16,7 +16,7 @@ const cleanup = (arr) => arr.filter((v) => Number.isFinite(v));
 
 function analyzeAnomalies(annualData, minYear, maxYear) {
   const anomaliesForYears = cleanup(
-    getAnomalies(filterYears(annualData, minYear, maxYear))
+    getAnomalies(filterYears(annualData, minYear, maxYear)),
   );
   const anomaliesMean = mean(anomaliesForYears);
   const anomaliesSigma = sigma(anomaliesForYears, anomaliesMean);
@@ -48,31 +48,31 @@ async function warmingStripeData(url) {
   annualData.forEach((v, i) =>
     assert(
       v.year === annualData[0].year + i,
-      `The temperature record contains duplicate or missing data for the reference month (June) in year ${v.year}.`
-    )
+      `The temperature record contains duplicate or missing data for the reference month (June) in year ${v.year}.`,
+    ),
   );
 
   annualData.forEach((v) =>
     assert(
       (typeof v.anomaly === 'number' && Number.isFinite(v.anomaly)) ||
         v.anomaly === null,
-      `Temperature anomaly for ${v.year} must be a finite number or null, but is ${v.anomaly}.`
-    )
+      `Temperature anomaly for ${v.year} must be a finite number or null, but is ${v.anomaly}.`,
+    ),
   );
 
   annualData.forEach((v) =>
     assert(
       (typeof v.unc === 'number' && Number.isFinite(v.unc)) || v.unc === null,
-      `Temperature anomaly uncertainty for ${v.year} must be a finite number or null, but is ${v.unc}.`
-    )
+      `Temperature anomaly uncertainty for ${v.year} must be a finite number or null, but is ${v.unc}.`,
+    ),
   );
 
   const xor = (a, b) => (a && !b) || (!a && b);
   annualData.forEach((v) =>
     assert(
       !xor(Number.isFinite(v.anomaly), Number.isFinite(v.unc)),
-      `Temperature anomaly and uncertainty for ${v.year} must both be valid or invalid.`
-    )
+      `Temperature anomaly and uncertainty for ${v.year} must both be valid or invalid.`,
+    ),
   );
 
   delete temperatureData.content;
@@ -88,25 +88,25 @@ async function warmingStripeData(url) {
   const validYearRange = [minValidYear, maxValidYear];
   assert(
     minValidYear <= maxValidYear,
-    `At least the data for the most recent year must be valid. Valid year range: ${validYearRange}.`
+    `At least the data for the most recent year must be valid. Valid year range: ${validYearRange}.`,
   );
 
   const { mean: mean1971To2000 } = analyzeAnomalies(annualData, 1971, 2000);
   const { mean: mean1901To2000, stdDev: stdDev1901To2000 } = analyzeAnomalies(
     annualData,
     1901,
-    2000
+    2000,
   );
 
   assert(
     stdDev1901To2000 > 0.0,
-    `Standard deviation must be > 0, but is ${stdDev1901To2000}.`
+    `Standard deviation must be > 0, but is ${stdDev1901To2000}.`,
   );
 
   const maxDev = max(
     cleanup(anomalies).map(
-      (a) => Math.abs(a - mean1901To2000) / stdDev1901To2000
-    )
+      (a) => Math.abs(a - mean1901To2000) / stdDev1901To2000,
+    ),
   );
 
   const maxStdDev = maxDev < 2.6 ? 2.6 : maxDev;
@@ -144,7 +144,7 @@ async function main(configPath) {
         ...region,
         ...wsd,
       };
-    })
+    }),
   );
 
   const yearRange = regions.reduce(
@@ -152,19 +152,19 @@ async function main(configPath) {
       Math.min(acc[0], cur.validYearRange[0]),
       Math.max(acc[1], cur.validYearRange[1]),
     ],
-    [Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY]
+    [Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY],
   );
   const validYearRange = regions.reduce(
     (acc, cur) => [
       Math.max(acc[0], cur.validYearRange[0]),
       Math.min(acc[1], cur.validYearRange[1]),
     ],
-    [Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY]
+    [Number.NEGATIVE_INFINITY, Number.POSITIVE_INFINITY],
   );
   const languages = Object.keys(
     config.regions
       .map((r) => r.title)
-      .reduce((cur, acc) => ({ ...acc, ...cur }), {})
+      .reduce((cur, acc) => ({ ...acc, ...cur }), {}),
   );
 
   const wsd = { yearRange, validYearRange, languages, regions };

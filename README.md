@@ -19,7 +19,7 @@ valid:
 - `minYear` (`'data'`, `'valid'`, `<number>`, default: `'valid'`): The first year to show in the views. If `'data'`, the
   first year of the dataset is used. If `'valid'`, the first year considered valid in the dataset is used. If `<number>`
   , use that year.
-- `maxYear` (`'data'`, `'valid'`, `<number>`, default: `'data'`):  The last year to show in the views. If `'data'`, the
+- `maxYear` (`'data'`, `'valid'`, `<number>`, default: `'data'`): The last year to show in the views. If `'data'`, the
   last year of the dataset is used. If `'valid'`, the last year considered valid in the dataset is used. If `<number>`,
   use that year.
 - `invalidYear` (`'show'`, `'show-valid'`, `'adjust-to-valid'`, default: `'show'`): How to deal with invalid/missing
@@ -52,106 +52,54 @@ valid:
 
 For setting up this exhibit on a Raspberry Pi 3B+, please follow the [setup guide](station/README.md).
 
-## Compilation
+## Building and development
 
-This web application is built using several compilable languages:
+You will need `node` and `npm` installed on your system.
 
-- The CSS stylesheet is pre-compiled from **sass** files.
-- The JS scripts are trans-compiled from **es11** (ES2020) files.
-
-To make any modifications re-compilation is necessary. You should install:
-
-- `node`, `npm`, `npx`
-
-Afterwards run the following in the command line to install dependencies:
+To install dependencies, run:
 
 ```shell
-cd src
 npm install
 ```
 
-After the dependencies have been installed successfully, you can compile as needed:
-
-- **sass (stylesheets)**
-
-  ```shell
-  npx gulp styles
-  ```
-
-- **scripts (ES11)**
-
-  ```shell
-  npx gulp scripts
-  ```
-
-- **dependencies (ES11)**
-
-  ```shell
-  npx gulp dependencies
-  ```
-
-- **fonts (Font files)**
-
-  ```shell
-  npx gulp fonts
-  ```
-
-- **data (Datasets)**
-
-  ```shell
-  npx gulp data
-  ```
-
-- **all**
-
-  ```shell
-  npm run build
-  ```
-
-  respectively
-
-  ```shell
-  npx gulp build
-  ```
-
-- **watch for changes and recompile as needed**
-  ```shell
-  npx gulp watch
-  ```
-
-### Serving and automatic reloading
+To build the project into the `dist` folder, run:
 
 ```shell
-cd src
-npx reload -d .. -w ../index.html -p [free port]
+npm run build
+```
+
+To start a development server with automatic reloading, run:
+
+```shell
+npm run dev
 ```
 
 ### Generating datasets
 
-Dataset are generated from raw temperature anomaly retrieved from [Berkeley Earth](http://berkeleyearth.lbl.gov). The
+Datasets are generated from raw temperature anomaly retrieved from [Berkeley Earth](http://berkeleyearth.lbl.gov). The
 selection of which raw data files to use is made in `.json` config files located in `/src/json`. The
 dataset `/assets/data/<dataset>.json` is generated based on `/src/json/config-<dataset>.json`. The config file format is
 as follows:
 
 ```json5
 {
-  "regions": [
+  regions: [
     {
-      "title": {
-        "lngA": "Region 0 title in language A",
-        "lngB": "Region 0 title in language B"
+      title: {
+        lngA: 'Region 0 title in language A',
+        lngB: 'Region 0 title in language B',
       },
-      "url": "http://..."
+      url: 'http://...',
     },
     {
-      "title": {
-        "lngA": "Region 1 title in language A",
-        "lngB": "Region 1 title in language B"
+      title: {
+        lngA: 'Region 1 title in language A',
+        lngB: 'Region 1 title in language B',
       },
-      "url": "http://..."
+      url: 'http://...',
     },
     // ... more regions ...
-  ]
+  ],
 }
 ```
 
@@ -159,22 +107,24 @@ The links to the raw data files can be found at the temperature anomaly page of 
 for [Germany](http://berkeleyearth.lbl.gov/regions/germany), the raw data file
 is [this](http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/germany-TAVG-Trend.txt).
 
-After editing one of the config files, re-run `npx gulp data` to regenerate all datasets. In order to only regenerate a
-single `<dataset>`, you can also run :
+After editing one of the config files, re-run `npm run data` to regenerate all datasets included in the repository.
+In order to only regenerate a single `<dataset>`, you can also run :
 
 ```shell
-node ./src/js/data-generator/main.js './src/json/config-<dataset>.json' > '/assets/data/<dataset>.json'
+node ./src/js/data-generator/main.js 'path-to/config-<dataset>.json' > 'public/data/<dataset>.json'
 ```
+
+Rebuilding the project will then include the updated dataset into the `dist` folder.
 
 ## Credits
 
-Developed by Christian Stussak, IMAGINARY gGmbH.
+Developed by [Christian Stussak](https://github.com/porst17) for [IMAGINARY gGmbH](https://www.imaginary.org).
 
 ## License
 
 ### Source code
 
-Copyright 2021 IMAGINARY gGmbH
+Copyright 2025 [IMAGINARY gGmbH](https://www.imaginary.org)
 
 Licensed under the Apache License, Version 2.0 (see `LICENSE`).
 
@@ -183,4 +133,3 @@ Licensed under the Apache License, Version 2.0 (see `LICENSE`).
 The datasets are generated from the [Creative Commons BY-4.0](https://creativecommons.org/licenses/by/4.0/) licensed
 temperature anomaly data available at [Berkeley Earth](http://berkeleyearth.lbl.gov). For a precise list of raw data
 files this project builds upon, see the `.json` files in `/src/json`.
-

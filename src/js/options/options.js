@@ -1,5 +1,4 @@
-import pickBy from 'lodash.pickby';
-import mapValues from 'lodash.mapvalues';
+import { mapValues, pickBy } from 'es-toolkit';
 
 import * as defaultOptions from './defaultOptions';
 import * as optionParsers from './optionParsers';
@@ -17,7 +16,7 @@ function collision(...objs) {
 const collidingDefaultOptions = collision(Object.values(defaultOptions));
 if (collidingDefaultOptions.length > 0) {
   throw new Error(
-    `Colliding default options detected: ${collidingDefaultOptions}`
+    `Colliding default options detected: ${collidingDefaultOptions}`,
   );
 }
 
@@ -46,12 +45,12 @@ export function getOptions(withDefaults = true) {
   const rawOptions = Object.fromEntries(searchParams.entries());
 
   const categorizedOptions = mapValues(defaultOptions, (v1, k1) =>
-    mapValues(sanitize(rawOptions, v1), (v2, k2) => optionParsers[k1][k2](v2))
+    mapValues(sanitize(rawOptions, v1), (v2, k2) => optionParsers[k1][k2](v2)),
   );
 
   // merge all options together
   return Object.assign(
     withDefaults ? getDefaultOptions() : {},
-    ...Object.values(categorizedOptions)
+    ...Object.values(categorizedOptions),
   );
 }

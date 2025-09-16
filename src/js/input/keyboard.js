@@ -1,4 +1,4 @@
-import over from 'lodash.over';
+import { over } from 'es-toolkit/compat';
 
 import Input from './input';
 
