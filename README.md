@@ -174,7 +174,7 @@ Developed by Christian Stussak, IMAGINARY gGmbH.
 
 ### Source code
 
-Copyright 2021 IMAGINARY gGmbH
+Copyright 2025 [IMAGINARY gGmbH](https://www.imaginary.org)
 
 Licensed under the Apache License, Version 2.0 (see `LICENSE`).
 
