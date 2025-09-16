@@ -76,7 +76,7 @@ npm run dev
 
 ### Generating datasets
 
-Dataset are generated from raw temperature anomaly retrieved from [Berkeley Earth](http://berkeleyearth.lbl.gov). The
+Datasets are generated from raw temperature anomaly retrieved from [Berkeley Earth](http://berkeleyearth.lbl.gov). The
 selection of which raw data files to use is made in `.json` config files located in `/src/json`. The
 dataset `/assets/data/<dataset>.json` is generated based on `/src/json/config-<dataset>.json`. The config file format is
 as follows:
