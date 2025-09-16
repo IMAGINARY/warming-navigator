@@ -17,7 +17,7 @@ Environment="WAYLAND_DISPLAY=wayland-0"
 Environment="DISPLAY=:0"
 # The `wheelDelta` parameter in the following line is platform and browser specific. Values of `53` (macOS, Chrome)
 # and `120` (RPi OS, Chromium) have been observed. Adjust as necessary.
-ExecStart=bash -c '(sleep 20; xdotool mousemove 100 100) & exec chromium-browser --disable-gpu-blocklist --enable-gpu-rasterization --use-gl=desktop --kiosk --start-fullscreen --incognito --noerrdialogs --no-first-run --disk-cache-dir=/dev/null \'http://localhost:8080?wheel=true&wheelDelta=120\''
+ExecStart=bash -c '(sleep 20; xdotool mousemove 100 100) & exec chromium-browser --remote-debugging-port=9222 --disable-gpu-blocklist --enable-gpu-rasterization --use-gl=desktop --kiosk --start-fullscreen --incognito --noerrdialogs --no-first-run --disk-cache-dir=/dev/null \'http://localhost:8080?wheel=true&wheelDelta=120\''
 
 [Install]
 WantedBy=multi-user.target
