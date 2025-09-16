@@ -21,9 +21,11 @@ async function main() {
   const wnOptions = { ...options };
   if (options.singleCellView) {
     wnOptions.element = document.querySelector('#warming-navigator');
+    document.body.classList.add('with-single-cell-view');
   }
   if (options.gridView) {
     wnOptions.gridViewElement = document.querySelector('#anomaly-table');
+    document.body.classList.add('with-grid-view');
   }
 
   const wn = new WarmingNavigator(data, wnOptions);
