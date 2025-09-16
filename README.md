@@ -118,7 +118,7 @@ Rebuilding the project will then include the updated dataset into the `dist` fol
 
 ## Credits
 
-Developed by Christian Stussak, IMAGINARY gGmbH.
+Developed by [Christian Stussak](https://github.com/porst17) for [IMAGINARY gGmbH](https://www.imaginary.org).
 
 ## License
 
