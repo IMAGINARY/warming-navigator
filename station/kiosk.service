@@ -15,7 +15,7 @@ Restart=always
 PAMName=login
 Environment="WAYLAND_DISPLAY=wayland-0"
 Environment="DISPLAY=:0"
-ExecStart=bash -c '(sleep 20; xdotool mousemove 100 100) & exec chromium-browser --disable-gpu-blocklist --enable-gpu-rasterization --use-gl=desktop --kiosk --start-fullscreen --incognito --noerrdialogs --no-first-run --disk-cache-dir=/dev/null \'http://localhost:8080?wheel=true&delta=53\''
+ExecStart=bash -c '(sleep 20; xdotool mousemove 100 100) & exec chromium-browser --disable-gpu-blocklist --enable-gpu-rasterization --use-gl=desktop --kiosk --start-fullscreen --incognito --noerrdialogs --no-first-run --disk-cache-dir=/dev/null \'http://localhost:8080?wheel=true&wheelDelta=53\''
 
 [Install]
 WantedBy=multi-user.target
