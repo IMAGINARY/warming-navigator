@@ -29,7 +29,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "data": "node ./src/js/data-generator/main.js < ./src/json/config-europe-ext.json > ./public/europe-ext.json",
+    "data": "node ./src/js/data-generator/main.js ./src/json/config-europe-ext.json > ./public/data/europe-ext.json",
     "format": "prettier --write .",
     "lint": "oxlint .",
     "lint:fix": "oxlint --fix ."
