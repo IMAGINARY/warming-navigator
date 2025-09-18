@@ -48,7 +48,7 @@ async function warmingStripeData(url) {
   annualData.forEach((v, i) =>
     assert(
       v.year === annualData[0].year + i,
-      `The temperature record contains duplicate or missing data for the reference month (June) in year ${v.year}.`,
+      `The temperature record contains duplicate or missing data for the reference month (June) in year ${v.year} (${url}).`,
     ),
   );
 
@@ -56,27 +56,38 @@ async function warmingStripeData(url) {
     assert(
       (typeof v.anomaly === 'number' && Number.isFinite(v.anomaly)) ||
         v.anomaly === null,
-      `Temperature anomaly for ${v.year} must be a finite number or null, but is ${v.anomaly}.`,
+      `Temperature anomaly (${v.anomaly}) for ${v.year} must be a finite number or null, but is ${v.anomaly} (${url}).`,
     ),
   );
 
   annualData.forEach((v) =>
     assert(
       (typeof v.unc === 'number' && Number.isFinite(v.unc)) || v.unc === null,
-      `Temperature anomaly uncertainty for ${v.year} must be a finite number or null, but is ${v.unc}.`,
+      `Temperature anomaly uncertainty (${v.unc}) for ${v.year} must be a finite number or null, but is ${v.unc} (${url}).`,
     ),
   );
 
-  const xor = (a, b) => (a && !b) || (!a && b);
   annualData.forEach((v) =>
     assert(
-      !xor(Number.isFinite(v.anomaly), Number.isFinite(v.unc)),
-      `Temperature anomaly and uncertainty for ${v.year} must both be valid or invalid.`,
+      Number.isFinite(v.anomaly) || !Number.isFinite(v.unc),
+      `Temperature anomaly uncertainty (${v.unc}) for ${v.year} must can not be valid if temperature anomaly (${v.anomaly}) is invalid (${url}).`,
     ),
   );
 
   delete temperatureData.content;
   const meta = { ...temperatureData };
+
+  // Remove years with invalid temperature anomaly from the beginning of the list
+  while (annualData.length > 0) {
+    if (Number.isFinite(annualData[0].anomaly)) break;
+    annualData.shift();
+  }
+
+  // Remove years with invalid temperature anomaly from the end of the list
+  while (annualData.length > 0) {
+    if (Number.isFinite(annualData[annualData.length - 1].anomaly)) break;
+    annualData.pop();
+  }
 
   const firstYear = annualData[0].year;
   const anomalies = annualData.map((d) => d.anomaly);
@@ -88,7 +99,7 @@ async function warmingStripeData(url) {
   const validYearRange = [minValidYear, maxValidYear];
   assert(
     minValidYear <= maxValidYear,
-    `At least the data for the most recent year must be valid. Valid year range: ${validYearRange}.`,
+    `At least the data for the most recent year must be valid. Valid year range: ${validYearRange}  (${url}).`,
   );
 
   const { mean: mean1971To2000 } = analyzeAnomalies(annualData, 1971, 2000);
@@ -100,7 +111,7 @@ async function warmingStripeData(url) {
 
   assert(
     stdDev1901To2000 > 0.0,
-    `Standard deviation must be > 0, but is ${stdDev1901To2000}.`,
+    `Standard deviation must be > 0, but is ${stdDev1901To2000} (${url}).`,
   );
 
   const maxDev = max(

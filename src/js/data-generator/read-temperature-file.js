@@ -1,14 +1,11 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-global.fetch = require('node-fetch');
-// eslint-disable-next-line import/no-extraneous-dependencies
-const d3Fetch = require('d3-fetch');
-// eslint-disable-next-line import/no-extraneous-dependencies
 const d3Dsv = require('d3-dsv');
 // eslint-disable-next-line import/no-extraneous-dependencies
 const d3TimeFormat = require('d3-time-format');
 
 async function readBasicFile(pth) {
-  const text = await d3Fetch.text(pth);
+  const response = await fetch(pth);
+  const text = await response.text();
   const rows = text.split('\n');
   const newRows = [];
   const specialData = [];
@@ -25,7 +22,7 @@ async function readBasicFile(pth) {
           }
         }
         newRows.push(itemsNew.join(' '));
-      } else if (rows[i].charAt(0) === '%' && rows[i].charAt(1) === '%') {
+      } else if (rows[i].startsWith('%% ')) {
         const items = rows[i].substring(2, rows[i].length).trim().split(':');
         if (items.length === 2) {
           specialData[items[0].trim()] = items[1].trim();
