@@ -36,7 +36,7 @@ export default class View {
       );
       return `${anomaly < 0 ? '' : '+'}${formatter.format(anomaly)}°C`;
     }
-    return '----';
+    return '   ? °C';
   }
 
   formatUncertainty(uncertainty) {
@@ -51,6 +51,6 @@ export default class View {
       );
       return `±${formatter.format(uncertainty)}°C`;
     }
-    return '----';
+    return '±  ? °C';
   }
 }
