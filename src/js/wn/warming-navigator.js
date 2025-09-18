@@ -23,6 +23,7 @@ export default class WarmingNavigator {
       gridViewElement,
 
       sort,
+      highContrast,
     } = this.processedOptions;
 
     const model = new Model(data, minYear, maxYear, language, sort);
@@ -43,6 +44,7 @@ export default class WarmingNavigator {
         rySelector,
         language,
         palette,
+        highContrast,
       );
       views.push(singleRecordView);
     }
@@ -54,6 +56,7 @@ export default class WarmingNavigator {
         rySelector,
         language,
         palette,
+        highContrast,
       );
       views.push(gridView);
     }

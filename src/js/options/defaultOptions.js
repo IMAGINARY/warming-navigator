@@ -15,6 +15,7 @@ export const warmingNavigator = {
   initialYear: 'random', // 'first', 'last', 'random', <number>
   initialRegion: 'random', // 'first', 'last', 'random', <number>
   palette: 'edHawkins', // see ../palettes.js
+  highContrast: false,
 };
 
 export const keyboard = {

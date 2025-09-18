@@ -1,8 +1,9 @@
 import View from './view';
 
 export default class GridView extends View {
-  constructor(element, model, rySelector, language, palette) {
+  constructor(element, model, rySelector, language, palette, highContrast) {
     super(model, rySelector, language, palette);
+    this.highContrast = highContrast;
     this.element = element;
     this.region = rySelector.getRegion();
     const minYear = model.getMinYear();
@@ -41,13 +42,14 @@ export default class GridView extends View {
       region,
       year,
     );
-    const color = this.getColorizer().hex(relativeAnomaly);
+    const color = this.getColorizer().get(relativeAnomaly);
     const formattedAnomaly = this.formatAnomaly(anomaly);
     const formattedUncertainty = this.formatUncertainty(uncertainty);
     const localTd = td;
     localTd.innerText = formattedAnomaly;
-    localTd.style.backgroundColor = color;
+    localTd.style.backgroundColor = color.hex();
     localTd.title = `${title}, ${year}: ${formattedAnomaly} ${formattedUncertainty}`;
+    if (this.highContrast && color.isDark()) localTd.classList.add('is-dark');
   }
 
   getTdElem(region, year) {

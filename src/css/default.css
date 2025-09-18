@@ -39,6 +39,10 @@ body.with-single-cell-view.with-grid-view {
   --base-px: min(calc(100vw / 800), calc(0.5 * 100vh / 480));
 }
 
+.is-dark {
+  color: white;
+}
+
 .warming-navigator {
   /* default font size is 16px */
   --base-font-size: calc(var(--base-px) * 16);

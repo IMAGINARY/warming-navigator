@@ -94,6 +94,7 @@ export const warmingNavigator = {
   initialYear: intOrStringsParser('first', 'last', 'random'),
   initialRegion: intOrStringsParser('first', 'last', 'random'),
   palette: paletteParser(),
+  highContrast: booleanParser(),
 };
 
 export const keyboard = {

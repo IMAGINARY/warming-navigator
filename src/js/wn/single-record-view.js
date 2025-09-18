@@ -1,8 +1,9 @@
 import View from './view';
 
 export default class SingleRecordView extends View {
-  constructor(element, model, rySelector, language, palette) {
+  constructor(element, model, rySelector, language, palette, highContrast) {
     super(model, rySelector, language, palette);
+    this.highContrast = highContrast;
     this.element =
       element instanceof Element ? element : document.querySelector(element);
     this.regionElement = this.element.querySelector('.region');
@@ -21,7 +22,7 @@ export default class SingleRecordView extends View {
       region,
       year,
     );
-    const color = this.getColorizer().hex(relativeAnomaly);
+    const color = this.getColorizer().get(relativeAnomaly);
     this.displayRecord(title, year, anomaly, uncertainty, color);
   }
 
@@ -30,6 +31,10 @@ export default class SingleRecordView extends View {
     this.yearElement.innerText = year;
     this.anomalyElement.innerText = this.formatAnomaly(anomaly);
     this.uncertaintyElement.innerText = this.formatUncertainty(uncertainty);
-    this.element.style.backgroundColor = color;
+    this.element.style.backgroundColor = color.hex();
+    if (this.highContrast) {
+      if (color.isDark()) this.element.classList.add('is-dark');
+      else this.element.classList.remove('is-dark');
+    }
   }
 }
