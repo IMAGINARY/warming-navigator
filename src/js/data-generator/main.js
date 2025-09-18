@@ -77,6 +77,18 @@ async function warmingStripeData(url) {
   delete temperatureData.content;
   const meta = { ...temperatureData };
 
+  // Remove years with invalid temperature anomaly from the beginning of the list
+  while (annualData.length > 0) {
+    if (Number.isFinite(annualData[0].anomaly)) break;
+    annualData.shift();
+  }
+
+  // Remove years with invalid temperature anomaly from the end of the list
+  while (annualData.length > 0) {
+    if (Number.isFinite(annualData[annualData.length - 1].anomaly)) break;
+    annualData.pop();
+  }
+
   const firstYear = annualData[0].year;
   const anomalies = annualData.map((d) => d.anomaly);
   const uncertainties = annualData.map((d) => d.unc);
