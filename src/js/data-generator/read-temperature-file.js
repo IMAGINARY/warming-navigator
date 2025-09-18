@@ -22,7 +22,7 @@ async function readBasicFile(pth) {
           }
         }
         newRows.push(itemsNew.join(' '));
-      } else if (rows[i].charAt(0) === '%' && rows[i].charAt(1) === '%') {
+      } else if (rows[i].startsWith('%% ')) {
         const items = rows[i].substring(2, rows[i].length).trim().split(':');
         if (items.length === 2) {
           specialData[items[0].trim()] = items[1].trim();
