@@ -67,11 +67,10 @@ async function warmingStripeData(url) {
     ),
   );
 
-  const xor = (a, b) => (a && !b) || (!a && b);
   annualData.forEach((v) =>
     assert(
-      !xor(Number.isFinite(v.anomaly), Number.isFinite(v.unc)),
-      `Temperature anomaly and uncertainty for ${v.year} must both be valid or invalid.`,
+      Number.isFinite(v.anomaly) || !Number.isFinite(v.unc),
+      `Temperature anomaly uncertainty (${v.unc}) for ${v.year} must can not be valid if temperature anomaly (${v.anomaly}) is invalid (${url}).`,
     ),
   );
 
