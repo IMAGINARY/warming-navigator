@@ -61,7 +61,6 @@ export default class WarmingNavigator {
         rySelector,
         language,
         palette,
-        mapPalette,
         highContrast,
       );
       views.push(singleRecordView);
@@ -74,7 +73,6 @@ export default class WarmingNavigator {
         rySelector,
         language,
         palette,
-        mapPalette,
         highContrast,
       );
       views.push(gridView);
