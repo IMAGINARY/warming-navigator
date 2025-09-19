@@ -23,10 +23,27 @@ export default class WarmingNavigator {
       gridViewElement,
 
       sort,
+      mapPalette,
       highContrast,
     } = this.processedOptions;
 
-    const model = new Model(data, minYear, maxYear, language, sort);
+    const shift =
+      typeof mapPalette === 'number'
+        ? data.regions[mapPalette].shift
+        : undefined;
+    const scale =
+      typeof mapPalette === 'number'
+        ? data.regions[mapPalette].scale
+        : undefined;
+    const model = new Model(
+      data,
+      minYear,
+      maxYear,
+      language,
+      sort,
+      shift,
+      scale,
+    );
 
     const rySelector = new RYSelectorClass({
       numRegions: model.getNumRegions(),
@@ -44,6 +61,7 @@ export default class WarmingNavigator {
         rySelector,
         language,
         palette,
+        mapPalette,
         highContrast,
       );
       views.push(singleRecordView);
@@ -56,6 +74,7 @@ export default class WarmingNavigator {
         rySelector,
         language,
         palette,
+        mapPalette,
         highContrast,
       );
       views.push(gridView);

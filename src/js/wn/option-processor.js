@@ -137,6 +137,7 @@ function processOther(data, options) {
     sort: options.sort,
     singleCellView: options.singleCellView,
     gridView: options.gridView,
+    mapPalette: options.mapPalette,
     highContrast: options.highContrast,
   };
 }
@@ -159,7 +160,7 @@ export default function processOptions(data, optionsNoDefaults) {
   const inputs = processInputs(options);
   const gridViewElement = processGridViewElement(options);
 
-  const { sort, highContrast } = processOther(data, options);
+  const { sort, mapPalette, highContrast } = processOther(data, options);
 
   return {
     initialRegion,
@@ -175,6 +176,7 @@ export default function processOptions(data, optionsNoDefaults) {
     gridViewElement,
 
     sort,
+    mapPalette,
     highContrast,
   };
 }

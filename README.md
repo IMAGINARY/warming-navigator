@@ -33,6 +33,11 @@ valid:
   app starts. Note that the region index is with respect to the order in the dataset.
 - `palette` (`'berkeleyEarth'`, `'edHawkins'`, default: `'edHawkins'`): Temperature anomaly color palette.
   See `/src/js/palettes.js`.
+- `mapPalette` (`'per-region'`, `<number>`, default: `'per-region'`): The temperature anomalies are mapped to the
+  palette. If `'per-region'`, compute the mapping for each regio individually. This can lead to the same temperature
+  anomalies being assigned different colors for different regions. If `<number>`, use the mapping computed for the
+  respective region in the dataset. This provides a more uniform view onto the dataset and makes it easier to compare
+  temperature anomalies of different regions by color.
 - `highContrast` (`<boolean>`, default: `false`): Invert text brightness for dark temperature anomaly colors.
 - `prevRegionKey` (`<string>`, [JS key](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values),
   default: `'ArrowLeft'`): Key that selects the previous region.
